@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 public class LoginForm extends javax.swing.JFrame {
 
      
-     int intentos = 3;
+     int intentos = 2;
      int Xmouse, Ymouse;
      
     public LoginForm() {
@@ -205,20 +205,19 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(intentos>0){
-            if(txtUsuario.getText().equals("admin") && txtContraseña.getText().equals("1234")){
-                this.dispose();
-                MainForm main= new MainForm();
-                main.setVisible(true);
-            }
-            else{
-            intentos--;
-            JOptionPane.showMessageDialog(rootPane, "Usuario y/o contraseña incorrecta. Tiene " + (intentos+1) + " intentos restantes");
-            }
+        if(txtUsuario.getText().equals("admin") && txtContraseña.getText().equals("1234")){
+            this.dispose();
+            MainForm main= new MainForm();
+            main.setVisible(true);
         }
         else{
-            System.exit(0);
+        intentos--;
+        if (intentos < 0) {
+            System.exit(1);
         }
+            JOptionPane.showMessageDialog(rootPane, "Usuario y/o contraseña incorrecta. Tiene " + (intentos+1) + " intentos restantes");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
