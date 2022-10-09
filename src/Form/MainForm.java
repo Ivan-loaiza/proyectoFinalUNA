@@ -26,21 +26,180 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        barraHerramientas = new javax.swing.JToolBar();
+        btnDepartamento = new javax.swing.JButton();
+        btnPuesto = new javax.swing.JButton();
+        btnEmpleado = new javax.swing.JButton();
+        btnJornada = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        escritorio = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnuArchivo = new javax.swing.JMenu();
+        mnuVentanaMain = new javax.swing.JMenu();
+        mnuMaximizar = new javax.swing.JMenuItem();
+        mnuVentana = new javax.swing.JMenuItem();
+        mnuMinimizar = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        barraHerramientas.setRollover(true);
+
+        btnDepartamento.setText("Departamento");
+        btnDepartamento.setFocusable(false);
+        btnDepartamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDepartamento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepartamentoActionPerformed(evt);
+            }
+        });
+        barraHerramientas.add(btnDepartamento);
+
+        btnPuesto.setText("Puesto");
+        btnPuesto.setFocusable(false);
+        btnPuesto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPuesto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPuestoActionPerformed(evt);
+            }
+        });
+        barraHerramientas.add(btnPuesto);
+
+        btnEmpleado.setText("Empleado");
+        btnEmpleado.setFocusable(false);
+        btnEmpleado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEmpleado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpleadoActionPerformed(evt);
+            }
+        });
+        barraHerramientas.add(btnEmpleado);
+
+        btnJornada.setText("Jornada");
+        btnJornada.setFocusable(false);
+        btnJornada.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnJornada.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnJornada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJornadaActionPerformed(evt);
+            }
+        });
+        barraHerramientas.add(btnJornada);
+
+        btnExit.setText("Exit");
+        btnExit.setFocusable(false);
+        btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+        barraHerramientas.add(btnExit);
+
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 396, Short.MAX_VALUE)
+        );
+
+        mnuArchivo.setText("Archivo");
+        jMenuBar1.add(mnuArchivo);
+
+        mnuVentanaMain.setText("Ventana");
+
+        mnuMaximizar.setText("Maximizar");
+        mnuMaximizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMaximizarActionPerformed(evt);
+            }
+        });
+        mnuVentanaMain.add(mnuMaximizar);
+
+        mnuVentana.setText("Ventana");
+        mnuVentana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuVentanaActionPerformed(evt);
+            }
+        });
+        mnuVentanaMain.add(mnuVentana);
+
+        mnuMinimizar.setText("Minimizar");
+        mnuMinimizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMinimizarActionPerformed(evt);
+            }
+        });
+        mnuVentanaMain.add(mnuMinimizar);
+
+        jMenuBar1.add(mnuVentanaMain);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(barraHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(escritorio)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(barraHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(escritorio))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mnuMaximizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMaximizarActionPerformed
+        // TODO add your handling code here:
+        this.setExtendedState(MAXIMIZED_BOTH);
+    }//GEN-LAST:event_mnuMaximizarActionPerformed
+
+    private void mnuVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVentanaActionPerformed
+        // TODO add your handling code here:
+        this.setExtendedState(NORMAL);
+    }//GEN-LAST:event_mnuVentanaActionPerformed
+
+    private void mnuMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMinimizarActionPerformed
+        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_mnuMinimizarActionPerformed
+
+    private void btnDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepartamentoActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnDepartamentoActionPerformed
+
+    private void btnPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestoActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnPuestoActionPerformed
+
+    private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEmpleadoActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnJornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJornadaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnJornadaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +238,18 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToolBar barraHerramientas;
+    private javax.swing.JButton btnDepartamento;
+    private javax.swing.JButton btnEmpleado;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnJornada;
+    private javax.swing.JButton btnPuesto;
+    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu mnuArchivo;
+    private javax.swing.JMenuItem mnuMaximizar;
+    private javax.swing.JMenuItem mnuMinimizar;
+    private javax.swing.JMenuItem mnuVentana;
+    private javax.swing.JMenu mnuVentanaMain;
     // End of variables declaration//GEN-END:variables
 }

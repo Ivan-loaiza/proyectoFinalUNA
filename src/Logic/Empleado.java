@@ -16,21 +16,21 @@ public class Empleado {
     private String nombre;
     private String correo;
     private String telefono;
-    private int id_puesto;
+    private Puesto puesto;
 
-    public Empleado(int id, String nombre, String correo, String telefono, int id_puesto) 
+    public Empleado(int id, String nombre, String correo, String telefono, Puesto puesto) 
         throws IllegalArgumentException {
         if (Empleado.idDisponible(id) == false) {
             throw new IllegalArgumentException("La ID de empleado ya está en uso");
         }
-        if (Puesto.existePuesto(id_puesto) == false) {
+        if (Puesto.existePuesto(puesto.getId()) == false) {
             throw new IllegalArgumentException("El ID del puesto al que se refiere no existe");
         }
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
-        this.id_puesto = id_puesto;
+        this.puesto = puesto;
     }
     
     public int getId() {
@@ -65,14 +65,15 @@ public class Empleado {
         this.telefono = telefono;
     }
 
-    public int getId_puesto() {
-        return id_puesto;
+    public Puesto getPuesto() {
+        return puesto;
     }
 
-    public void setId_puesto(int id_puesto) {
-        this.id_puesto = id_puesto;
+    public void setPuesto(Puesto puesto) {
+        this.puesto = puesto;
     }
-    
+
+   
     public static Vector<Empleado> empleados = new Vector<>();
     
     public static boolean existeEmpleado(int id) {
