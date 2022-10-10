@@ -179,17 +179,21 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuMinimizarActionPerformed
 
     private void btnDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepartamentoActionPerformed
-        // TODO add your handling code here:
-        
+    MostrarDepartamento verDepartamentos = new MostrarDepartamento();
+    escritorio.add(verDepartamentos);
+    verDepartamentos.show();
     }//GEN-LAST:event_btnDepartamentoActionPerformed
 
     private void btnPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestoActionPerformed
-        // TODO add your handling code here:
-        
+    MostrarPuestoTrabajo verPuestoTrabajo = new MostrarPuestoTrabajo();
+    escritorio.add(verPuestoTrabajo);
+    verPuestoTrabajo.show();
     }//GEN-LAST:event_btnPuestoActionPerformed
 
     private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
-        // TODO add your handling code here:
+    MostrarEmpleado verEmpleados = new MostrarEmpleado();
+    escritorio.add(verEmpleados);
+    verEmpleados.show();
     }//GEN-LAST:event_btnEmpleadoActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -198,7 +202,9 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnJornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJornadaActionPerformed
-        // TODO add your handling code here:
+    MostrarJornadaLaboral verJornadaLaboral = new MostrarJornadaLaboral();
+    escritorio.add(verJornadaLaboral);
+    verJornadaLaboral.show();
     }//GEN-LAST:event_btnJornadaActionPerformed
 
     /**
