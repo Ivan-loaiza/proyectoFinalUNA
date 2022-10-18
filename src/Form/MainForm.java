@@ -4,6 +4,10 @@
  */
 package Form;
 
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
 /**
  *
  * @author PC
@@ -35,14 +39,22 @@ public class MainForm extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
+        mnuDepartamentos = new javax.swing.JMenuItem();
+        mnuPuestos = new javax.swing.JMenuItem();
+        mnuEmpleados = new javax.swing.JMenuItem();
+        mnuJornadas = new javax.swing.JMenuItem();
+        mnuPlanillas = new javax.swing.JMenuItem();
+        mnuUsuario = new javax.swing.JMenuItem();
+        mnuSalir = new javax.swing.JMenuItem();
         mnuVentanaMain = new javax.swing.JMenu();
         mnuMaximizar = new javax.swing.JMenuItem();
         mnuVentana = new javax.swing.JMenuItem();
         mnuMinimizar = new javax.swing.JMenuItem();
+        mnuAyuda = new javax.swing.JMenu();
+        mnuAcercaDe = new javax.swing.JMenuItem();
+        mnuContenido = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        barraHerramientas.setRollover(true);
 
         btnDepartamento.setText("Departamento");
         btnDepartamento.setFocusable(false);
@@ -88,7 +100,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         barraHerramientas.add(btnJornada);
 
-        btnExit.setText("Exit");
+        btnExit.setText("Salir");
         btnExit.setFocusable(false);
         btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -111,6 +123,33 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         mnuArchivo.setText("Archivo");
+
+        mnuDepartamentos.setText("Departamentos");
+        mnuArchivo.add(mnuDepartamentos);
+
+        mnuPuestos.setText("Puestos de trabajo");
+        mnuArchivo.add(mnuPuestos);
+
+        mnuEmpleados.setText("Empleados");
+        mnuArchivo.add(mnuEmpleados);
+
+        mnuJornadas.setText("Jornadas Laborales");
+        mnuArchivo.add(mnuJornadas);
+
+        mnuPlanillas.setText("Planillas");
+        mnuArchivo.add(mnuPlanillas);
+
+        mnuUsuario.setText("Usuario");
+        mnuArchivo.add(mnuUsuario);
+
+        mnuSalir.setText("Salir");
+        mnuSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSalirActionPerformed(evt);
+            }
+        });
+        mnuArchivo.add(mnuSalir);
+
         jMenuBar1.add(mnuArchivo);
 
         mnuVentanaMain.setText("Ventana");
@@ -141,6 +180,16 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuVentanaMain);
 
+        mnuAyuda.setText("Ayuda");
+
+        mnuAcercaDe.setText("Acerca de...");
+        mnuAyuda.add(mnuAcercaDe);
+
+        mnuContenido.setText("Contenido");
+        mnuAyuda.add(mnuContenido);
+
+        jMenuBar1.add(mnuAyuda);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,9 +197,7 @@ public class MainForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(barraHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(escritorio)
-                .addContainerGap())
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +245,11 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        int opcion;
+        opcion= JOptionPane.showConfirmDialog(null, "¿Realmente desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
+        if(opcion==0){
+            System.exit(0);
+        }
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnJornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJornadaActionPerformed
@@ -206,6 +257,15 @@ public class MainForm extends javax.swing.JFrame {
     escritorio.add(verJornadaLaboral);
     verJornadaLaboral.show();
     }//GEN-LAST:event_btnJornadaActionPerformed
+
+    private void mnuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSalirActionPerformed
+        // TODO add your handling code here:
+        int opcion;
+        opcion= JOptionPane.showConfirmDialog(null, "¿Realmente desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
+        if(opcion==0){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_mnuSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +278,7 @@ public class MainForm extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                UIManager.put("control", new Color(255,255,255));
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -252,9 +313,19 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnPuesto;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem mnuAcercaDe;
     private javax.swing.JMenu mnuArchivo;
+    private javax.swing.JMenu mnuAyuda;
+    private javax.swing.JMenuItem mnuContenido;
+    private javax.swing.JMenuItem mnuDepartamentos;
+    private javax.swing.JMenuItem mnuEmpleados;
+    private javax.swing.JMenuItem mnuJornadas;
     private javax.swing.JMenuItem mnuMaximizar;
     private javax.swing.JMenuItem mnuMinimizar;
+    private javax.swing.JMenuItem mnuPlanillas;
+    private javax.swing.JMenuItem mnuPuestos;
+    private javax.swing.JMenuItem mnuSalir;
+    private javax.swing.JMenuItem mnuUsuario;
     private javax.swing.JMenuItem mnuVentana;
     private javax.swing.JMenu mnuVentanaMain;
     // End of variables declaration//GEN-END:variables

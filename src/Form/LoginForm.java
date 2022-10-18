@@ -50,12 +50,13 @@ public class LoginForm extends javax.swing.JFrame {
                 MainForm main= new MainForm();
                 main.setVisible(true);
             }
-            else{
-            intentos--;
             
-            if (intentos < 0) {
-                System.exit(0);
-            }
+            else{
+                
+            intentos--;
+                if (intentos < 0) {
+                    System.exit(0);
+                }
             
                 JOptionPane.showMessageDialog(rootPane, "Usuario y/o contraseña incorrecta. Tiene " + (intentos+1) + " intentos restantes");
             }
