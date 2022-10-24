@@ -23,9 +23,9 @@ public class Empleado {
         if (Empleado.idDisponible(id) == false) {
             throw new IllegalArgumentException("La ID de empleado ya está en uso");
         }
-        if (Puesto.existePuesto(puesto.getId()) == false) {
+        /*if (Puesto.existePuesto(puesto.getId()) == false) {
             throw new IllegalArgumentException("El ID del puesto al que se refiere no existe");
-        }
+        }*/
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;

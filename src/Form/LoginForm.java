@@ -5,11 +5,12 @@
 package Form;
 
 import java.awt.Color;
+import Logic.Global;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-public class LoginForm extends javax.swing.JFrame {
+public class LoginForm extends javax.swing.JFrame implements Global {
 
      
      int intentos = 2;
@@ -24,9 +25,12 @@ public class LoginForm extends javax.swing.JFrame {
     
     //Implementación correcta (segun la documentación de java) de un passwordField
     boolean isPasswordCorrect(char [] input){
-        
+            
             boolean isCorrect = true;
             char [] correctPassword = {'1', '2', '3', '4'};
+            
+            //if(password != null){ correctPassword = password;}
+            
             
             if(input.length != correctPassword.length){
                 isCorrect = false;
@@ -45,7 +49,7 @@ public class LoginForm extends javax.swing.JFrame {
           String usuario= txtUsuario.getText().replaceAll(" +", "").trim();
           char [] input = txtContraseña.getPassword();
            
-            if(usuario.equals("admin") && isPasswordCorrect(input)){
+            if(usuario.equals(user) && isPasswordCorrect(input)){
                 this.dispose();
                 MainForm main= new MainForm();
                 main.setVisible(true);

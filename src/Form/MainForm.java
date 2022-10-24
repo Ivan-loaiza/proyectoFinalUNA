@@ -19,6 +19,7 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+        
     }
 
     /**
@@ -140,6 +141,11 @@ public class MainForm extends javax.swing.JFrame {
         mnuArchivo.add(mnuPlanillas);
 
         mnuUsuario.setText("Usuario");
+        mnuUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuUsuarioActionPerformed(evt);
+            }
+        });
         mnuArchivo.add(mnuUsuario);
 
         mnuSalir.setText("Salir");
@@ -266,6 +272,12 @@ public class MainForm extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_mnuSalirActionPerformed
+
+    private void mnuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUsuarioActionPerformed
+        // TODO add your handling code here:
+        UserForm mostrarUsuario = new UserForm();
+        mostrarUsuario.setVisible(true);
+    }//GEN-LAST:event_mnuUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

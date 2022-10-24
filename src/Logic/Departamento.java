@@ -9,19 +9,61 @@ package Logic;
  * @author Juan
  */
 
-import java.util.Vector;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class Departamento {
+    
+    
     private int id;
     private String nombre;
+
+    public Departamento() {
+    }
     
-    public Departamento(int id, String nombre) throws IllegalArgumentException {
-        if (Departamento.idDisponible(id) == false) {
-            throw new IllegalArgumentException("La ID del departamento ya está en uso");
-        }
+    
+    public Departamento(int id, String nombre) {
+            
         this.id = id;
         this.nombre = nombre;
+        
+        departamentos.add(this);
     }
+    
+    //#######################################################################
+    
+    FileManager util = new FileManager();
+    
+    public static ArrayList<Departamento> departamentos = new ArrayList<>();
+    
+    public void cargarDepartamentos (DefaultTableModel ModeloTabla){
+        
+        util.LeerTablaArchivo(2, "Departamentos.dat", ModeloTabla);
+        
+        for(int index=0; index < ModeloTabla.getRowCount(); index++){
+            
+            Departamento D1= new Departamento(Integer.parseInt(ModeloTabla.getValueAt(index, 0).toString()), ModeloTabla.getValueAt(index, 1).toString());
+            departamentos.add(D1);
+        }
+        
+    }
+    
+    public static boolean existeDepartamento(int id) {
+        
+        for (int i = 0; i < departamentos.size(); i++) {
+            if (departamentos.get(i).getId() == id) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public static boolean idDisponible(int id) {
+        return !Departamento.existeDepartamento(id);
+    }
+    
+    //######################################################################
     
     public int getId() {
         return this.id;
@@ -39,24 +81,6 @@ public class Departamento {
         this.nombre = nombre;
     }
     
-    public static Vector<Departamento> departamentos = new Vector<>();
-    
-    public static boolean existeDepartamento(int id) {
-        int len = departamentos.size();
-        
-        for (int i = 0; i < len; i++) {
-            if (departamentos.get(i).getId() == id) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    public static boolean idDisponible(int id) {
-        return !Departamento.existeDepartamento(id);
-    }
-    
     public static Departamento getDepartamento(int id) {
         int len = departamentos.size();
         
@@ -68,4 +92,5 @@ public class Departamento {
         
         return null;
     }
+    
 }

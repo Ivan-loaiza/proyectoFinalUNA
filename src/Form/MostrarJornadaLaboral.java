@@ -4,19 +4,105 @@
  */
 package Form;
 
+import Logic.Empleado;
+import Logic.*;
+import Logic.FileManager;
+import javax.swing.JOptionPane;
+import Logic.Jornada;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
+import Logic.Global;
+import java.time.Instant;
+import java.util.Date;
 
-/**
- *
- * @author ivanl
- */
-public class MostrarJornadaLaboral extends javax.swing.JInternalFrame {
+public class MostrarJornadaLaboral extends javax.swing.JInternalFrame implements Global{
 
     /**
      * Creates new form MostrarJornadaLaboral
      */
+    
     public MostrarJornadaLaboral() {
         initComponents();
+        cargarArchivo();
+        configurarModelo();
+        agregarEmpleados();
+        
     }
+    
+    Object[] filas = new Object[7];
+    
+    DefaultTableModel modeloTabla = new DefaultTableModel();
+    DefaultComboBoxModel modeloComboBox = new DefaultComboBoxModel();
+    FileManager util = new FileManager();
+    int fila;
+    
+    //########################################################
+    
+    Departamento D1 = new Departamento(001, "Informatica");
+    Puesto P1= new Puesto(1324, "Administrador", 1000, 001);
+    Empleado E1= new Empleado(01, "Juan", "Jioh@gmail.com", "78798032", P1);
+    
+    //########################################################
+    
+    
+     private void agregarEmpleados(){
+         modeloComboBox.addElement("--Seleccione una opcion--");
+         modeloComboBox.addElement(E1);
+         //modeloComboBox.addAll(Empleados);
+         cbkEmpleado.setModel(modeloComboBox);
+     }
+    
+     private void configurarModelo() {
+        modeloTabla.addColumn("ID Jornada"); 
+        modeloTabla.addColumn("Horas normales");
+        modeloTabla.addColumn("Horas extras");
+        modeloTabla.addColumn("Salario Bruto");
+        modeloTabla.addColumn("Fecha inicio");
+        modeloTabla.addColumn("Fecha fin");
+        modeloTabla.addColumn("ID Empleado");
+        tblJornadas.setModel(modeloTabla);
+    }
+    
+    private void CargarTabla() {
+        try {
+            Jornada jornada= new Jornada(Integer.parseInt(txtID.getText()) , Integer.parseInt(txtHoras.getText()) ,
+                    Integer.parseInt(txtHorasEx.getText()) , (Empleado) cbkEmpleado.getSelectedItem(), fechaInicio.getDate().toString(), 
+                    fechaFin.getDate().toString());
+            
+            filas[0] = jornada.getIdJornada();
+            filas[1] = jornada.getHorasNormales();
+            filas[2] = jornada.getHorasExtras();
+            filas[3] = jornada.calcularSalarioBruto();
+            filas[4] = jornada.getFechaInicio();
+            filas[5] = jornada.getFechaFinal();
+            filas[6] = jornada.getEmpleado().getId();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+    
+    private void cargarArchivo() {
+        util.LeerTablaArchivo(7, "Jornadas.dat", modeloTabla);
+        tblJornadas.setModel(modeloTabla);
+    }
+    
+    private void LimpiarCampos() {
+        txtID.setText("");
+        txtHorasEx.setText("");
+        txtHoras.setText("");
+        fechaInicio.setDate(Date.from(Instant.now()));
+        fechaFin.setDate(Date.from(Instant.now()));
+        cbkEmpleado.setSelectedIndex(0);
+    }
+    
+   /* private void SeleccionarRegistro() {
+        txtID.setText(String.valueOf(tblJornadas.getValueAt(fila, 0)));
+        txtHoras.setText(String.valueOf(tblJornadas.getValueAt(fila, 1)));
+        txtHorasEx.setText(String.valueOf(tblJornadas.getValueAt(fila, 2)));
+        cbkEmpleado.setModel(String.valueOf(tblJornadas.getValueAt(fila, 3)));
+    }*/
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,9 +113,10 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        SaveForm = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
-        txtNombre = new javax.swing.JTextField();
-        txtApellidos = new javax.swing.JTextField();
+        txtHoras = new javax.swing.JTextField();
+        txtHorasEx = new javax.swing.JTextField();
         txtID = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -37,12 +124,23 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        cbkTurno = new javax.swing.JComboBox<>();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        cbkEmpleado = new javax.swing.JComboBox<>();
+        fechaInicio = new com.toedter.calendar.JDateChooser();
+        fechaFin = new com.toedter.calendar.JDateChooser();
+        btnGuardarDialog = new javax.swing.JButton();
+        btnCancelarDialog = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
+        btnGuardar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblJornadas = new javax.swing.JTable();
 
-        setClosable(true);
-        setResizable(true);
+        SaveForm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        SaveForm.setAlwaysOnTop(true);
 
         jLabel1.setText("Horas normales:");
 
@@ -56,7 +154,21 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame {
 
         jLabel6.setText("ID empleado:");
 
-        cbkTurno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione una opcion--" }));
+        cbkEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione una opcion--" }));
+
+        btnGuardarDialog.setText("Guardar");
+        btnGuardarDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarDialogActionPerformed(evt);
+            }
+        });
+
+        btnCancelarDialog.setText("Cancelar");
+        btnCancelarDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarDialogActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -73,13 +185,19 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtApellidos, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtHorasEx, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtHoras, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtID)
-                    .addComponent(cbkTurno, 0, 215, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbkEmpleado, 0, 281, Short.MAX_VALUE)
+                    .addComponent(fechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardarDialog)
+                .addGap(37, 37, 37)
+                .addComponent(btnCancelarDialog)
+                .addGap(26, 26, 26))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,55 +208,173 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNombre)
+                    .addComponent(txtHoras)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHorasEx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(cbkTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                    .addComponent(cbkEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardarDialog)
+                    .addComponent(btnCancelarDialog))
+                .addGap(15, 15, 15))
+        );
+
+        javax.swing.GroupLayout SaveFormLayout = new javax.swing.GroupLayout(SaveForm.getContentPane());
+        SaveForm.getContentPane().setLayout(SaveFormLayout);
+        SaveFormLayout.setHorizontalGroup(
+            SaveFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        SaveFormLayout.setVerticalGroup(
+            SaveFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Jornada Laboral");
+
+        jToolBar1.setRollover(true);
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.setFocusable(false);
+        btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnGuardar);
+
+        jButton2.setText("jButton2");
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton2);
+
+        jButton3.setText("jButton3");
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton3);
+
+        jButton4.setText("jButton4");
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton4);
+
+        jButton5.setText("jButton5");
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton5);
+
+        tblJornadas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblJornadas);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        SaveForm.setSize(400,500);
+        SaveForm.setVisible(true);
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarDialogActionPerformed
+        // TODO add your handling code here:
+        this.SaveForm.dispose();
+    }//GEN-LAST:event_btnCancelarDialogActionPerformed
+
+    private void btnGuardarDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarDialogActionPerformed
+        // TODO add your handling code here:
+        try {
+            CargarTabla();
+            modeloTabla.addRow(filas);
+            tblJornadas.setModel(modeloTabla);
+            LimpiarCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null ,JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGuardarDialogActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbkTurno;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JDialog SaveForm;
+    private javax.swing.JButton btnCancelarDialog;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnGuardarDialog;
+    private javax.swing.JComboBox<String> cbkEmpleado;
+    private com.toedter.calendar.JDateChooser fechaFin;
+    private com.toedter.calendar.JDateChooser fechaInicio;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtApellidos;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTable tblJornadas;
+    private javax.swing.JTextField txtHoras;
+    private javax.swing.JTextField txtHorasEx;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

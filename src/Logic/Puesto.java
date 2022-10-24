@@ -9,26 +9,32 @@ package Logic;
  * @author Juan
  */
 
-import java.util.Vector;
+import java.util.ArrayList;
+
 
 public class Puesto {
     private int id;
     private String nombre;
     private int salario;
-    private Departamento departamento;
+    private int idDepartamento;
+    private Departamento Departamento;
     
-    public Puesto(int id, String nombre, int salario, Departamento departamento)
+    public Puesto(int id, String nombre, int salario, int idDepartamento)
      throws IllegalArgumentException {
+        
         if (Puesto.idDisponible(id) == false) {
             throw new IllegalArgumentException("ID de puesto ya está en uso");
         }
-        if (Departamento.existeDepartamento(departamento.getId()) == false) {
+        if (Departamento.existeDepartamento(idDepartamento) == false) {
             throw new IllegalArgumentException("La ID del departamento no se refiere a ningún departamento existente");
         }
         this.id = id;
         this.nombre = nombre;
         this.salario = salario;
-        this.departamento = departamento;
+        this.idDepartamento = idDepartamento;
+        
+        puestos.add(this);
+        
     }
 
     public int getId() {
@@ -55,30 +61,30 @@ public class Puesto {
         this.salario = salario;
     }
 
-    public Departamento getDepartamento() {
-        return departamento;
+    public int getIdDepartamento() {
+        return idDepartamento;
     }
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+    public void setIdDepartamento(int idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 
-    public static Vector<Puesto> getPuestos() {
+
+    public static ArrayList<Puesto> getPuestos() {
         return puestos;
     }
 
-    public static void setPuestos(Vector<Puesto> puestos) {
+    public static void setPuestos(ArrayList<Puesto> puestos) {
         Puesto.puestos = puestos;
     }
     
     
     
-    public static Vector<Puesto> puestos = new Vector<>();
+    public static ArrayList<Puesto> puestos = new ArrayList<>();
     
     public static boolean existePuesto(int id) {
-        int len = puestos.size();
         
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < puestos.size(); i++) {
             if (puestos.get(i).getId() == id) {
                 return true;
             }
