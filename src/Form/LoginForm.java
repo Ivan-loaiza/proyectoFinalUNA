@@ -8,6 +8,7 @@ import java.awt.Color;
 import Logic.Global;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame implements Global {
@@ -19,9 +20,11 @@ public class LoginForm extends javax.swing.JFrame implements Global {
     public LoginForm() {
         initComponents();
         this.setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon(getClass().getResource("/resources/user-middle.png"));
+        this.setIconImage(icon.getImage());
         
     }
-    
+     
     
     //Implementación correcta (segun la documentación de java) de un passwordField
     boolean isPasswordCorrect(char [] input){

@@ -9,10 +9,19 @@ package Logic;
  * @author Juan
  */
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
-public class Departamento {
+public class Departamento implements Serializable, Global{
     
     
     private int id;
@@ -31,22 +40,86 @@ public class Departamento {
     }
     
     //#######################################################################
+    public static String ruta = System.getProperty("user.dir") + "\\src\\Data\\Departamentos.dat";
+    DefaultTableModel modeloTablaDepartamentos = new DefaultTableModel();
     
-    FileManager util = new FileManager();
-    
-    public static ArrayList<Departamento> departamentos = new ArrayList<>();
-    
-    public void cargarDepartamentos (DefaultTableModel ModeloTabla){
+    public void removerDepartamento(Departamento D1){
         
-        util.LeerTablaArchivo(2, "Departamentos.dat", ModeloTabla);
-        
-        for(int index=0; index < ModeloTabla.getRowCount(); index++){
-            
-            Departamento D1= new Departamento(Integer.parseInt(ModeloTabla.getValueAt(index, 0).toString()), ModeloTabla.getValueAt(index, 1).toString());
-            departamentos.add(D1);
+        for(int index=0 ; index <departamentos.size(); index++){
+            if(departamentos.get(index) == D1)
+            departamentos.remove(D1);
         }
-        
     }
+    
+    public void editarDepartamento(String nuevoNombre , int index){
+        Departamento D1 = new Departamento(departamentos.get(index).getId() , nuevoNombre);
+        departamentos.set (index, D1);
+        departamentos.remove(departamentos.size()-1);
+    }
+    
+      public DefaultTableModel generarModeloTabla(){
+         Object [] filas = new Object[2];
+         
+         
+         modeloTablaDepartamentos = new DefaultTableModel();
+         modeloTablaDepartamentos.addColumn("ID Departamento"); 
+         modeloTablaDepartamentos.addColumn("Nombre");
+         
+         for(Departamento departamento : departamentos){
+            filas[0] = "" + departamento.getId();
+            filas[1] = departamento.getNombre();
+             
+            modeloTablaDepartamentos.addRow(filas);
+         }
+         
+         //Se limpian las filas con información basura
+         for(int i = 0 ; i < modeloTablaDepartamentos.getRowCount() ; i++){
+             if(modeloTablaDepartamentos.getValueAt(i, 0).toString().equals("0") == true ){
+                 modeloTablaDepartamentos.removeRow(i);
+             }
+         }
+         
+         return modeloTablaDepartamentos;
+     }
+    
+    public void guardarEnArchivo() {
+        String archivo = "Departamentos.dat";
+            try {
+                ObjectOutputStream ficheroSalida = new ObjectOutputStream(
+                        new FileOutputStream(new File(ruta)));
+                ficheroSalida.writeObject(departamentos);
+                ficheroSalida.flush();
+                ficheroSalida.close();
+                System.out.println("Datos de guardados correctamente en " + archivo + ".");
+            } catch (FileNotFoundException fnfe) {
+                System.out.println("Error: El fichero " + archivo + " no existe. ");
+            } catch (IOException ioe) {
+                System.out.println("Error: Fallo la escritura en el fichero" + archivo + ". ");
+            }
+    }
+    
+     public void recuperarDeArchivo() {
+        try {
+            File fichero = new File(ruta);
+            if (fichero.exists()) {
+                ObjectInputStream ficheroEntrada = new ObjectInputStream(new FileInputStream(fichero));
+                ArrayList<Departamento> temporal = (ArrayList<Departamento>) ficheroEntrada.readObject();
+                departamentos.clear();
+                departamentos.addAll(temporal);
+                ficheroEntrada.close();
+                
+                for(Departamento departamento : departamentos){
+                    System.out.print(departamento.id + " / ");
+                }
+            }
+        } catch (ClassNotFoundException cnfe) {
+
+        } catch (FileNotFoundException fnfe) {
+
+        } catch (IOException ioe) {
+
+        }
+     }
     
     public static boolean existeDepartamento(int id) {
         
@@ -81,16 +154,20 @@ public class Departamento {
         this.nombre = nombre;
     }
     
-    public static Departamento getDepartamento(int id) {
-        int len = departamentos.size();
+    public Departamento getDepartamento(int index){
+        return departamentos.get(index);
+    }
+    
+    
+    
+    public void Eliminar() {
+        Vector<Puesto> puestos = Puesto.PuestosDeDepartamento(this.id);
         
-        for (int i = 0; i < len; i++) {
-            if (departamentos.get(i).getId() == id) {
-                return departamentos.get(i);
-            }
+        for (Puesto puesto: puestos) {
+            puesto.Eliminar();
         }
         
-        return null;
+        Departamento.departamentos.remove(this);
     }
     
 }

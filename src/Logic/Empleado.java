@@ -11,21 +11,14 @@ package Logic;
 
 import java.util.Vector;
 
-public class Empleado {
+public class Empleado implements Global{
     private int id;
     private String nombre;
     private String correo;
     private String telefono;
     private Puesto puesto;
 
-    public Empleado(int id, String nombre, String correo, String telefono, Puesto puesto) 
-        throws IllegalArgumentException {
-        if (Empleado.idDisponible(id) == false) {
-            throw new IllegalArgumentException("La ID de empleado ya está en uso");
-        }
-        /*if (Puesto.existePuesto(puesto.getId()) == false) {
-            throw new IllegalArgumentException("El ID del puesto al que se refiere no existe");
-        }*/
+    public Empleado(int id, String nombre, String correo, String telefono, Puesto puesto) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;

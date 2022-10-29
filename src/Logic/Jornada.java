@@ -2,26 +2,29 @@
 package Logic;
 
 
-public class Jornada {
+public class Jornada implements Global{
     
-    private int idJornada, horasNormales, horasExtras;
-    private Empleado empleado;
+    private int idJornada, horasNormales, horasExtras, idEmpleado;
     private String fechaInicio, fechaFinal;
 
-    public Jornada(int idJornada, int horasNormales, int horasExtras, Empleado empleado, String fechaInicio, String fechaFinal) {
+    public Jornada(int idJornada, int horasNormales, int horasExtras, int idEmpleado, String fechaInicio, String fechaFinal) {
         this.idJornada = idJornada;
         this.horasNormales = horasNormales;
         this.horasExtras = horasExtras;
-        this.empleado = empleado;
+        this.idEmpleado = idEmpleado;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
+        
+        jornadas.add(this);
     }
+
     
-    public double calcularSalarioBruto(){
+    /*
+    public double calcularSalarioBruto(){S
         int salarioHora= empleado.getPuesto().getSalario();
         
         return salarioHora*horasExtras*horasNormales;
-    }
+    }*/
 
     public int getIdJornada() {
         return idJornada;
@@ -47,13 +50,6 @@ public class Jornada {
         this.horasExtras = horasExtras;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
 
     public String getFechaInicio() {
         return fechaInicio;

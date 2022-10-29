@@ -6,77 +6,51 @@
 
 package Form;
 
-import Logic.FileManager;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import Logic.Departamento;
+import Logic.Global;
 
-/**
- *
- * @author ivanl
- */
 
-public class MostrarDepartamento extends javax.swing.JInternalFrame {
+public class MostrarDepartamento extends javax.swing.JInternalFrame implements Global {
 
-    /**
-     * Creates new form MostrarDepartamento
-     */
     public MostrarDepartamento() {
         initComponents();
-        configurarModelo();
-        cargarArchivo(); 
-        if(tblDepartamentos.getRowCount() > 0){D1.cargarDepartamentos(modeloTablaDepartamentos);}
-       
+        util.recuperarDeArchivo();
+        tblDepartamentos.setModel(util.generarModeloTabla());
     }
-
+    
+    //Se declaran las variables a utilizar
     Object[] filas = new Object[2];
-    Departamento D1 = new Departamento();
-    DefaultTableModel modeloTablaDepartamentos = new DefaultTableModel();
-    FileManager util = new FileManager();
+    Departamento util = new Departamento();
     int fila;
     
-    
-     private void configurarModelo() {
-        modeloTablaDepartamentos.addColumn("ID Departamento"); 
-        modeloTablaDepartamentos.addColumn("Nombre");
-        tblDepartamentos.setModel(modeloTablaDepartamentos);
-        
-    }
+    //Funcion de carga de tabla
      
-     private void cargarArchivo() {
-        util.LeerTablaArchivo(2, "Departamentos.dat", modeloTablaDepartamentos);
-        tblDepartamentos.setModel(modeloTablaDepartamentos);
-    }
-    
+     //Se resetean los campos
      private void LimpiarCampos() {
         txtID.setText("");
         txtNombreDepartamento.setText("");
+        
+        for(int index=0; index < filas.length ; index++){
+            filas [index]  = null;
+            }
     }
      
      //Funciones de llenado y comprobación de valores 
-     
      //LLenado 
-      private void LlenarTabla() {
-        try {
+      private void AgregarDepartamento() {
             if(Departamento.idDisponible(Integer.parseInt(txtID.getText().trim())) == true){
             Departamento departamento = new Departamento(Integer.parseInt(txtID.getText().trim()), txtNombreDepartamento.getText().trim());
             
-            filas[0] = departamento.getId();
-            filas[1] = departamento.getNombre();
             }
             else{
-               JOptionPane.showMessageDialog(rootPane, "Por digite otro ID. ID ocupado por otro departamento"); 
+               JOptionPane.showMessageDialog(rootPane, "Por digite otro ID. ID ocupado por otro puesto"); 
             }
-        } catch (Exception ex) {
-            
-            JOptionPane.showMessageDialog(null, ex.getMessage());//Manejar excepciones como mensajes despues
-            
-        }
     }
       
      private void seleccionarDatos(){
           txtIdDepartamento.setText(tblDepartamentos.getValueAt(fila, 0).toString());
-          txtNombreDepartamento.setText(tblDepartamentos.getValueAt(fila, 1).toString());
+          txtNombreEditar.setText(tblDepartamentos.getValueAt(fila, 1).toString());
      }
     
       //Comprueba que los datos en los campos sean validos
@@ -84,6 +58,14 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
          if(txtID.getText().isBlank() == false && txtNombreDepartamento.getText().isBlank() == false){
              if(EsUnNumero()==true){
              return true;}
+         }
+         return false;
+     }
+     
+     //Comprueba que los datos en los campos sean validos
+     private boolean ExistenDatosValidosEdit(){
+         if(txtNombreEditar.getText().isBlank() == false){
+             return true;
          }
          return false;
      }
@@ -97,6 +79,7 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
                  return false;
                  }
      }
+     
      
     
     @SuppressWarnings("unchecked")
@@ -126,12 +109,12 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDepartamentos = new javax.swing.JTable();
 
         SaveForm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         SaveForm.setTitle("Guardar");
-        SaveForm.setAlwaysOnTop(true);
         SaveForm.setResizable(false);
 
         jLabel1.setText("Nombre departamento:");
@@ -201,6 +184,9 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
             SaveFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        EditForm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        EditForm.setTitle("Editar");
 
         txtIdDepartamento.setEditable(false);
 
@@ -278,8 +264,7 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Departamento");
 
-        jToolBar1.setRollover(true);
-
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/save.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.setFocusable(false);
         btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -291,6 +276,7 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
         });
         jToolBar1.add(btnGuardar);
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/edit.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setFocusable(false);
         btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -302,6 +288,7 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
         });
         jToolBar1.add(btnEditar);
 
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/delete.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.setFocusable(false);
         btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -313,12 +300,14 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
         });
         jToolBar1.add(btnEliminar);
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/printer.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
         btnImprimir.setFocusable(false);
         btnImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnImprimir);
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/exit_32x32.png"))); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.setFocusable(false);
         btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -329,6 +318,17 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
             }
         });
         jToolBar1.add(btnSalir);
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setFocusable(false);
+        btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnActualizar);
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -350,15 +350,15 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -377,7 +377,7 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        SaveForm.setSize(400,200);
+        SaveForm.pack();
         SaveForm.setVisible(true);
         SaveForm.setResizable(false);
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -385,22 +385,15 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
     private void btnGuardarSaveFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarSaveFormActionPerformed
         // TODO add your handling code here:
         if(ExistenDatosValidos() == true){
-            LlenarTabla();
-        }
-        if(filas != null){
-            modeloTablaDepartamentos.addRow(filas);
-            LimpiarCampos();
-                for(int index=0; index < filas.length ; index++){
-                filas [index]  = null;
-                }
+            AgregarDepartamento();        
         }
         else{
             JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null, JOptionPane.WARNING_MESSAGE);
             if(EsUnNumero() == false){JOptionPane.showMessageDialog(rootPane, "El ID no es un numero entero, por favor ingrese un numero entero", null, JOptionPane.WARNING_MESSAGE);}
         }
-            
-            tblDepartamentos.setModel(modeloTablaDepartamentos);
-            util.EscribirEnArchivo("Departamentos.dat", modeloTablaDepartamentos);
+        LimpiarCampos();
+        util.guardarEnArchivo();
+        tblDepartamentos.setModel(util.generarModeloTabla());
     }//GEN-LAST:event_btnGuardarSaveFormActionPerformed
 
     private void btnCancelarSaveFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarSaveFormActionPerformed
@@ -410,11 +403,21 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        for(int i =0; i <= modeloTablaDepartamentos.getRowCount() ; i++){
-            modeloTablaDepartamentos.removeRow(0);
+        try {
+            fila = tblDepartamentos.getSelectedRow();
+            int resp = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro que desea eliminar la fila " + (fila+1) + " ?", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+           
+            if(resp == JOptionPane.YES_OPTION){
+                Departamento departamento = departamentos.get(fila);
+                util.removerDepartamento(departamento);
+                tblDepartamentos.setModel(util.generarModeloTabla());
+                util.guardarEnArchivo();
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione una fila a editar");
         }
-        tblDepartamentos.setModel(modeloTablaDepartamentos);
-        util.EscribirEnArchivo("Departamentos.dat", modeloTablaDepartamentos);
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -424,7 +427,14 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
 
     private void btnModificarEditFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEditFormActionPerformed
         // TODO add your handling code here:
-               
+        if(ExistenDatosValidosEdit() == true){
+            util.editarDepartamento(txtNombreEditar.getText(), fila);
+            tblDepartamentos.setModel(util.generarModeloTabla());
+            util.guardarEnArchivo();
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null, JOptionPane.WARNING_MESSAGE);   
+        }
     }//GEN-LAST:event_btnModificarEditFormActionPerformed
 
     private void btnCancelarEditFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditFormActionPerformed
@@ -434,13 +444,12 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
-           
         try {
             fila = tblDepartamentos.getSelectedRow();
             txtIdDepartamento.setEnabled(false);
             seleccionarDatos();
             
-            EditForm.setSize(400,200);
+            EditForm.pack();
             EditForm.setResizable(false);
             EditForm.setVisible(true);
             
@@ -450,19 +459,19 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
-        // TODO add your handling code here:
-        try {
-            fila = tblDepartamentos.rowAtPoint(evt.getPoint());
-            seleccionarDatos();
-        } catch (Exception e) {
-        }
-            txtIdDepartamento.setEnabled(false);
+        // TODO add your handling code here
     }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        tblDepartamentos.setModel(util.generarModeloTabla());
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog EditForm;
     private javax.swing.JDialog SaveForm;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCancelarEditForm;
     private javax.swing.JButton btnCancelarSaveForm;
     private javax.swing.JButton btnEditar;

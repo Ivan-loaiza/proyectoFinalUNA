@@ -4,17 +4,16 @@
  */
 package Form;
 
-import Logic.Puesto;
-import Logic.Global;
+import Logic.*;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author ivanl
  */
-public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements Global{
+public class MostrarPlanillas extends javax.swing.JInternalFrame implements Global{
 
-    public MostrarPuestoTrabajo() {
+    public MostrarPlanillas() {
         initComponents();
         util.recuperarDeArchivo();
         tblPuestos.setModel(util.generarModeloTabla());
@@ -80,29 +79,10 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
          return false;
      }
      
-     private boolean ExistenDatosValidosEdit(){
-         if( txtNombreEditar.getText().isBlank() == false 
-                 && txtSalarioEditar.getText().isBlank() == false){
-             if(EsUnNumeroEdit()==true){
-             return true;}
-         }
-         return false;
-     }
-     
      //Se asegura que el string ingresa en el TXTID es un numero
      private boolean EsUnNumero(){
              try {
                  int unNumero = Integer.parseInt(txtID.getText().trim());
-                 unNumero = Integer.parseInt(txtSalario.getText().trim());
-                 return true;
-                 } catch (NumberFormatException e) {
-                 return false;
-                 }
-     }
-     
-     private boolean EsUnNumeroEdit(){
-             try {
-                 int unNumero =  Integer.parseInt(txtSalarioEditar.getText().trim());
                  return true;
                  } catch (NumberFormatException e) {
                  return false;
@@ -146,7 +126,6 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         btnEliminar = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPuestos = new javax.swing.JTable();
 
@@ -337,7 +316,6 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         setResizable(true);
         setTitle("Puesto de trabajo");
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/save.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.setFocusable(false);
         btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -349,7 +327,6 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         });
         jToolBar1.add(btnGuardar);
 
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/edit.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setFocusable(false);
         btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -361,7 +338,6 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         });
         jToolBar1.add(btnEditar);
 
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/delete.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.setFocusable(false);
         btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -373,14 +349,12 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         });
         jToolBar1.add(btnEliminar);
 
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/printer.png"))); // NOI18N
         btnImprimir.setText("Imprimir");
         btnImprimir.setFocusable(false);
         btnImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnImprimir);
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/exit_32x32.png"))); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.setFocusable(false);
         btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -391,17 +365,6 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
             }
         });
         jToolBar1.add(btnSalir);
-
-        btnActualizar.setText("Actualizar");
-        btnActualizar.setFocusable(false);
-        btnActualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnActualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnActualizar);
 
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -423,15 +386,15 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -505,7 +468,7 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         }
         else{
             JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null, JOptionPane.WARNING_MESSAGE);
-            if(EsUnNumero() == false){JOptionPane.showMessageDialog(rootPane, "El ID o el salario no son un numero entero, por favor ingrese un numero entero", null, JOptionPane.WARNING_MESSAGE);}
+            if(EsUnNumero() == false){JOptionPane.showMessageDialog(rootPane, "El ID no es un numero entero, por favor ingrese un numero entero", null, JOptionPane.WARNING_MESSAGE);}
             if(cboIdDepartamento.getSelectedIndex() <= 0){JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un ID de departamento", null, JOptionPane.WARNING_MESSAGE);}
         }
             LimpiarCampos();
@@ -520,18 +483,11 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
 
     private void btnModificarEditFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEditFormActionPerformed
         // TODO add your handling code here:
-        if((cboIdDepartamentoEditar.getSelectedIndex() > 0) && (ExistenDatosValidosEdit() == true)){
+        if(cboIdDepartamentoEditar.getSelectedIndex() > 0){
             util.editarPuesto(txtNombreEditar.getText(), Integer.parseInt(txtSalarioEditar.getText().trim()), Integer.parseInt(cboIdDepartamentoEditar.getSelectedItem().toString().trim()) , fila);
-            tblPuestos.setModel(util.generarModeloTabla());
-            util.guardarEnArchivo();
         }
-        else{
-            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null, JOptionPane.WARNING_MESSAGE);
-            if(EsUnNumeroEdit()== false){JOptionPane.showMessageDialog(rootPane, "El salario no es un numero entero, por favor ingrese un numero entero", null, JOptionPane.WARNING_MESSAGE);}
-            if(cboIdDepartamentoEditar.getSelectedIndex() <= 0){JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un ID de departamento", null, JOptionPane.WARNING_MESSAGE);}
-       
-        }
-      
+        tblPuestos.setModel(util.generarModeloTabla());
+        util.guardarEnArchivo();
     }//GEN-LAST:event_btnModificarEditFormActionPerformed
 
     private void btnCancelarEditFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditFormActionPerformed
@@ -539,18 +495,10 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         this.EditForm.dispose();
     }//GEN-LAST:event_btnCancelarEditFormActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
-        tblPuestos.setModel(util.generarModeloTabla());
-        cboIdDepartamento.setModel(util.generarModeloComboBox());
-        cboIdDepartamentoEditar.setModel(util.generarModeloComboBox());
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog EditForm;
     private javax.swing.JDialog SaveForm;
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCancelarEditForm;
     private javax.swing.JButton btnCancelarSaveForm;
     private javax.swing.JButton btnEditar;

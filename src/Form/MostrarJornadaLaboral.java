@@ -4,9 +4,6 @@
  */
 package Form;
 
-import Logic.Empleado;
-import Logic.*;
-import Logic.FileManager;
 import javax.swing.JOptionPane;
 import Logic.Jornada;
 import javax.swing.table.DefaultTableModel;
@@ -23,9 +20,6 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame implements
     
     public MostrarJornadaLaboral() {
         initComponents();
-        cargarArchivo();
-        configurarModelo();
-        agregarEmpleados();
         
     }
     
@@ -33,58 +27,15 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame implements
     
     DefaultTableModel modeloTabla = new DefaultTableModel();
     DefaultComboBoxModel modeloComboBox = new DefaultComboBoxModel();
-    FileManager util = new FileManager();
     int fila;
     
     //########################################################
-    
-    Departamento D1 = new Departamento(001, "Informatica");
-    Puesto P1= new Puesto(1324, "Administrador", 1000, 001);
-    Empleado E1= new Empleado(01, "Juan", "Jioh@gmail.com", "78798032", P1);
-    
+   
     //########################################################
     
     
-     private void agregarEmpleados(){
-         modeloComboBox.addElement("--Seleccione una opcion--");
-         modeloComboBox.addElement(E1);
-         //modeloComboBox.addAll(Empleados);
-         cbkEmpleado.setModel(modeloComboBox);
-     }
     
-     private void configurarModelo() {
-        modeloTabla.addColumn("ID Jornada"); 
-        modeloTabla.addColumn("Horas normales");
-        modeloTabla.addColumn("Horas extras");
-        modeloTabla.addColumn("Salario Bruto");
-        modeloTabla.addColumn("Fecha inicio");
-        modeloTabla.addColumn("Fecha fin");
-        modeloTabla.addColumn("ID Empleado");
-        tblJornadas.setModel(modeloTabla);
-    }
     
-    private void CargarTabla() {
-        try {
-            Jornada jornada= new Jornada(Integer.parseInt(txtID.getText()) , Integer.parseInt(txtHoras.getText()) ,
-                    Integer.parseInt(txtHorasEx.getText()) , (Empleado) cbkEmpleado.getSelectedItem(), fechaInicio.getDate().toString(), 
-                    fechaFin.getDate().toString());
-            
-            filas[0] = jornada.getIdJornada();
-            filas[1] = jornada.getHorasNormales();
-            filas[2] = jornada.getHorasExtras();
-            filas[3] = jornada.calcularSalarioBruto();
-            filas[4] = jornada.getFechaInicio();
-            filas[5] = jornada.getFechaFinal();
-            filas[6] = jornada.getEmpleado().getId();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-    }
-    
-    private void cargarArchivo() {
-        util.LeerTablaArchivo(7, "Jornadas.dat", modeloTabla);
-        tblJornadas.setModel(modeloTabla);
-    }
     
     private void LimpiarCampos() {
         txtID.setText("");
@@ -328,7 +279,7 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame implements
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        SaveForm.setSize(400,500);
+        SaveForm.pack();
         SaveForm.setVisible(true);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -339,14 +290,6 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame implements
 
     private void btnGuardarDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarDialogActionPerformed
         // TODO add your handling code here:
-        try {
-            CargarTabla();
-            modeloTabla.addRow(filas);
-            tblJornadas.setModel(modeloTabla);
-            LimpiarCampos();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null ,JOptionPane.ERROR_MESSAGE);
-        }
     }//GEN-LAST:event_btnGuardarDialogActionPerformed
 
 
