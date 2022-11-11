@@ -10,6 +10,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import Logic.*;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 
 /**
@@ -234,9 +238,19 @@ public class MainForm extends javax.swing.JFrame {
         mnuAyuda.setText("Ayuda");
 
         mnuAcercaDe.setText("Acerca de...");
+        mnuAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAcercaDeActionPerformed(evt);
+            }
+        });
         mnuAyuda.add(mnuAcercaDe);
 
         mnuContenido.setText("Contenido");
+        mnuContenido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuContenidoActionPerformed(evt);
+            }
+        });
         mnuAyuda.add(mnuContenido);
 
         jMenuBar1.add(mnuAyuda);
@@ -395,6 +409,26 @@ public class MainForm extends javax.swing.JFrame {
             escritorio.setLayout(null);
         }
     }//GEN-LAST:event_mnuParaleloActionPerformed
+
+    private void mnuAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAcercaDeActionPerformed
+        // TODO add your handling code here
+        String ruta = System.getProperty("user.dir") + "\\src\\Data\\Jornadas.dat";    
+        
+        
+        
+        try {
+            Runtime.getRuntime().exec("cmd /c start "+ruta);
+        } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+    }//GEN-LAST:event_mnuAcercaDeActionPerformed
+
+    private void mnuContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuContenidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuContenidoActionPerformed
 
     /**
      * @param args the command line arguments

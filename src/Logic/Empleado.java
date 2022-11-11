@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Logic;
 
 /**
@@ -9,21 +6,29 @@ package Logic;
  * @author Juan
  */
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Empleado implements Global{
+public class Empleado implements Serializable,Global{
     private int id;
     private String nombre;
     private String correo;
     private String telefono;
-    private Puesto puesto;
+    private int idPuesto;
 
-    public Empleado(int id, String nombre, String correo, String telefono, Puesto puesto) {
+    public Empleado() {
+    }
+
+    
+    
+    public Empleado(int id, String nombre, String correo, String telefono, int idPuesto) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
-        this.puesto = puesto;
+        this.idPuesto = idPuesto;
+        
+        empleados.add(this);
     }
     
     public int getId() {
@@ -58,16 +63,29 @@ public class Empleado implements Global{
         this.telefono = telefono;
     }
 
-    public Puesto getPuesto() {
-        return puesto;
+    public int getIdPuesto() {
+        return idPuesto;
     }
 
-    public void setPuesto(Puesto puesto) {
-        this.puesto = puesto;
+    public void setIdPuesto(int idPuesto) {
+        this.idPuesto = idPuesto;
     }
+
+    public int devolverSalario(){
+        
+        int salario=0;
+        
+            for(Puesto puesto : puestos){
+                if(idPuesto == puesto.getId()){
+                    salario = puesto.getSalario();
+                }
+            }
+    
+        return salario;
+    }
+    
 
    
-    public static Vector<Empleado> empleados = new Vector<>();
     
     public static boolean existeEmpleado(int id) {
         int len = empleados.size();
@@ -96,4 +114,5 @@ public class Empleado implements Global{
         
         return null;
     }
+    
 }

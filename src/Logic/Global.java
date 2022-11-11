@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 public interface Global {
-    String user="admin";
+    String user = "admin";
     //implementar cambio de contraseña despues, es opcional
     char [] password = new char [10];
     
@@ -14,5 +14,6 @@ public interface Global {
     public ArrayList<Puesto> puestos = new ArrayList<>();
     public ArrayList<Empleado> empleados = new ArrayList<>();
     public ArrayList<Jornada> jornadas = new ArrayList<>();
+    public ArrayList<User> usuarioAjuste = new ArrayList<>();
     
 }

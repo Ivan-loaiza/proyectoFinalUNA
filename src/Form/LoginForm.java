@@ -6,9 +6,11 @@ package Form;
 
 import java.awt.Color;
 import Logic.Global;
+import Logic.User;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame implements Global {
@@ -19,20 +21,26 @@ public class LoginForm extends javax.swing.JFrame implements Global {
      
     public LoginForm() {
         initComponents();
+        util.recuperarDeArchivo();
         this.setLocationRelativeTo(null);
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/user-middle.png"));
         this.setIconImage(icon.getImage());
         
     }
      
+    User util = new User();
     
     //Implementación correcta (segun la documentación de java) de un passwordField
     boolean isPasswordCorrect(char [] input){
             
             boolean isCorrect = true;
-            char [] correctPassword = {'1', '2', '3', '4'};
+            char [] correctPassword = new char[10];
+            if(usuarioAjuste.isEmpty()){
+                correctPassword = new char [] {'1', '2', '3', '4'};
+            }else{
+                correctPassword = usuarioAjuste.get(0).getContra();
+            }
             
-            //if(password != null){ correctPassword = password;}
             
             
             if(input.length != correctPassword.length){
@@ -51,7 +59,7 @@ public class LoginForm extends javax.swing.JFrame implements Global {
         
           String usuario= txtUsuario.getText().replaceAll(" +", "").trim();
           char [] input = txtContraseña.getPassword();
-           
+          
             if(usuario.equals(user) && isPasswordCorrect(input)){
                 this.dispose();
                 MainForm main= new MainForm();
@@ -70,6 +78,36 @@ public class LoginForm extends javax.swing.JFrame implements Global {
             
     }
     
+    //Metodos para reutilizar codigo en el frame de usuario
+    
+    public void cambioTitulo (String titulo){
+        lblTitulo.setText(titulo);
+    }
+    
+    public void comprobarDatos(){
+         String usuario= txtUsuario.getText().replaceAll(" +", "").trim();
+         char [] input = txtContraseña.getPassword();
+           
+            if(usuario.equals(user) && isPasswordCorrect(input)){
+                this.dispose();
+                UserForm U = new UserForm();
+                U.winModificar.pack();
+                U.winModificar.setVisible(true);
+                U.colocarDatos();
+            }
+            
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Usuario y/o contraseña incorrecta.");
+            }
+    }
+    
+    public boolean editable(boolean unEstado){
+        boolean estado = false;
+        
+        estado=unEstado;
+        
+        return estado;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -84,7 +122,7 @@ public class LoginForm extends javax.swing.JFrame implements Global {
         txtContraseña = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         txtExit = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         cbkPasswordVisible = new javax.swing.JCheckBox();
@@ -157,9 +195,9 @@ public class LoginForm extends javax.swing.JFrame implements Global {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Inicio de sesión");
+        lblTitulo.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(0, 0, 0));
+        lblTitulo.setText("Inicio de sesión");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -167,7 +205,7 @@ public class LoginForm extends javax.swing.JFrame implements Global {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(txtExit, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -175,7 +213,7 @@ public class LoginForm extends javax.swing.JFrame implements Global {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                 .addComponent(txtExit))
         );
 
@@ -232,9 +270,9 @@ public class LoginForm extends javax.swing.JFrame implements Global {
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -244,9 +282,7 @@ public class LoginForm extends javax.swing.JFrame implements Global {
                                     .addComponent(txtContraseña, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
                                     .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(119, 119, 119)
-                                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbkPasswordVisible)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -343,14 +379,21 @@ public class LoginForm extends javax.swing.JFrame implements Global {
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
         // TODO add your handling code here:
+        
         login();
     }//GEN-LAST:event_btnIngresarMouseClicked
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            login();
-       }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                
+                if (txtContraseña.getPassword().length != 0) {
+                    login();
+                } else {
+                    txtContraseña.requestFocus();
+                }
+                
+        }
     }//GEN-LAST:event_txtUsuarioKeyPressed
 
     private void cbkPasswordVisibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkPasswordVisibleActionPerformed
@@ -404,7 +447,6 @@ public class LoginForm extends javax.swing.JFrame implements Global {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnIngresar;
     private javax.swing.JCheckBox cbkPasswordVisible;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -412,6 +454,7 @@ public class LoginForm extends javax.swing.JFrame implements Global {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JLabel txtExit;
     private javax.swing.JTextField txtUsuario;

@@ -21,7 +21,9 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame implements G
     
     //Se declaran las variables a utilizar
     Object[] filas = new Object[2];
+    
     Departamento util = new Departamento();
+    
     int fila;
     
     //Funcion de carga de tabla

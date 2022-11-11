@@ -162,6 +162,8 @@ public class Puesto implements Global, Serializable {
                 puestos.addAll(temporal);
                 ficheroEntrada.close();
                 
+                
+                
                 for(Puesto puesto : puestos){
                     System.out.print(puesto.salario + " / ");
                 }

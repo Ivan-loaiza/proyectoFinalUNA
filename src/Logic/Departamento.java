@@ -4,11 +4,6 @@
  */
 package Logic;
 
-/**
- *
- * @author Juan
- */
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,6 +35,7 @@ public class Departamento implements Serializable, Global{
     }
     
     //#######################################################################
+    
     public static String ruta = System.getProperty("user.dir") + "\\src\\Data\\Departamentos.dat";
     DefaultTableModel modeloTablaDepartamentos = new DefaultTableModel();
     
@@ -49,10 +45,11 @@ public class Departamento implements Serializable, Global{
             if(departamentos.get(index) == D1)
             departamentos.remove(D1);
         }
+        
     }
     
     public void editarDepartamento(String nuevoNombre , int index){
-        Departamento D1 = new Departamento(departamentos.get(index).getId() , nuevoNombre);
+        Departamento D1 = new Departamento(departamentos.get(index).getId(), nuevoNombre);
         departamentos.set (index, D1);
         departamentos.remove(departamentos.size()-1);
     }
@@ -62,14 +59,17 @@ public class Departamento implements Serializable, Global{
          
          
          modeloTablaDepartamentos = new DefaultTableModel();
+         
          modeloTablaDepartamentos.addColumn("ID Departamento"); 
          modeloTablaDepartamentos.addColumn("Nombre");
          
          for(Departamento departamento : departamentos){
+             
             filas[0] = "" + departamento.getId();
             filas[1] = departamento.getNombre();
              
             modeloTablaDepartamentos.addRow(filas);
+            
          }
          
          //Se limpian las filas con información basura
@@ -85,11 +85,13 @@ public class Departamento implements Serializable, Global{
     public void guardarEnArchivo() {
         String archivo = "Departamentos.dat";
             try {
-                ObjectOutputStream ficheroSalida = new ObjectOutputStream(
-                        new FileOutputStream(new File(ruta)));
+                
+                ObjectOutputStream ficheroSalida = new ObjectOutputStream( new FileOutputStream(new File(ruta)));
                 ficheroSalida.writeObject(departamentos);
                 ficheroSalida.flush();
                 ficheroSalida.close();
+                
+                
                 System.out.println("Datos de guardados correctamente en " + archivo + ".");
             } catch (FileNotFoundException fnfe) {
                 System.out.println("Error: El fichero " + archivo + " no existe. ");
