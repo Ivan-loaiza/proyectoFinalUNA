@@ -161,15 +161,20 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="barraHerramientas" pref="785" max="32767" attributes="0"/>
-          <Component id="escritorio" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="escritorio" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="barraHerramientas" min="-2" pref="42" max="-2" attributes="0"/>
+              <Component id="barraHerramientas" min="-2" pref="58" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="escritorio" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -181,6 +186,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnDepartamento">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/departamentos img.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Departamento"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -192,6 +200,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnPuesto">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/icons8-buscar-trabajo-correspondiente-color-32.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Puesto"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -203,7 +214,10 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnEmpleado">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Empleado"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/icons8-sala-de-reuniones-cloud-32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Empleados"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -214,6 +228,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnJornada">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/icons8-business-time-32.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Jornada"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -223,8 +240,22 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnJornadaActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/icons8-iniciar-la-transferencia-de-dinero-color-32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Control de Pagos"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+        </Component>
         <Component class="javax.swing.JButton" name="btnExit">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/icons8-se&#xf1;al-de-salida-color-hand-drawn-32.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Salir"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -246,7 +277,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="396" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="374" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
