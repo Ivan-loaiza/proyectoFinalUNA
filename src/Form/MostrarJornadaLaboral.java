@@ -342,7 +342,7 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame implements
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        SaveForm.setResizable(false);
         SaveForm.pack();
         SaveForm.setVisible(true);
     }//GEN-LAST:event_btnGuardarActionPerformed
