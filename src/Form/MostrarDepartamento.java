@@ -9,13 +9,13 @@ package Form;
 import javax.swing.JOptionPane;
 import Logic.Departamento;
 import Logic.Global;
+import java.awt.print.PrinterException;
 
 
 public class MostrarDepartamento extends javax.swing.JInternalFrame implements Global {
 
     public MostrarDepartamento() {
         initComponents();
-        util.recuperarDeArchivo();
         tblDepartamentos.setModel(util.generarModeloTabla());
     }
     
@@ -307,6 +307,11 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame implements G
         btnImprimir.setFocusable(false);
         btnImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnImprimir);
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/exit_32x32.png"))); // NOI18N
@@ -390,8 +395,8 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame implements G
             AgregarDepartamento();        
         }
         else{
-            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null, JOptionPane.WARNING_MESSAGE);
-            if(EsUnNumero() == false){JOptionPane.showMessageDialog(rootPane, "El ID no es un numero entero, por favor ingrese un numero entero", null, JOptionPane.WARNING_MESSAGE);}
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", "Error: Datos de tipo incorrecto en los espacios de llenado", JOptionPane.ERROR_MESSAGE);
+            if(EsUnNumero() == false){JOptionPane.showMessageDialog(rootPane, "El ID no es un numero entero, por favor ingrese un numero entero", "Error: Datos no númericos encontrados", JOptionPane.ERROR_MESSAGE);}
         }
         LimpiarCampos();
         util.guardarEnArchivo();
@@ -405,7 +410,7 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame implements G
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        try {
+        if(tblDepartamentos.getSelectedRow() >= 0){
             fila = tblDepartamentos.getSelectedRow();
             int resp = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro que desea eliminar la fila " + (fila+1) + " ?", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
            
@@ -416,8 +421,8 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame implements G
                 util.guardarEnArchivo();
             }
             
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione una fila a editar");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione una fila a editar", "Error: Fila no seleccionada", JOptionPane.WARNING_MESSAGE);
         }
         
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -435,7 +440,7 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame implements G
             util.guardarEnArchivo();
         }
         else{
-            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null, JOptionPane.WARNING_MESSAGE);   
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", "Error: Datos de tipo incorrecto en los espacios de llenado", JOptionPane.ERROR_MESSAGE);   
         }
     }//GEN-LAST:event_btnModificarEditFormActionPerformed
 
@@ -468,6 +473,16 @@ public class MostrarDepartamento extends javax.swing.JInternalFrame implements G
         // TODO add your handling code here:
         tblDepartamentos.setModel(util.generarModeloTabla());
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            tblDepartamentos.print();
+        } catch (PrinterException e) {
+            JOptionPane.showMessageDialog(rootPane, ("No se pudo imprimir. Error: " + e ), "Error al imprimir", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

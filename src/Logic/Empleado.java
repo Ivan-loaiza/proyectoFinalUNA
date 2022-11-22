@@ -6,7 +6,6 @@ package Logic;
  * @author Juan
  */
 
-import static Logic.Global.departamentos;
 import static Logic.Global.puestos;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,7 +16,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,9 +34,9 @@ public class Empleado implements Serializable,Global{
     
     public Empleado(int id, String nombre, String correo, String telefono, int idPuesto) {
         this.id = id;
-        this.nombre = nombre;
-        this.correo = correo;
-        this.telefono = telefono;
+        this.nombre = nombre.toLowerCase();
+        this.correo = correo.toLowerCase();
+        this.telefono = telefono.toLowerCase();
         this.idPuesto = idPuesto;
         
         empleados.add(this);
@@ -84,7 +82,7 @@ public class Empleado implements Serializable,Global{
         this.idPuesto = idPuesto;
     }
 
-    public int devolverSalario(){
+    public double devolverSalario(){
         
         int salario=0;
         

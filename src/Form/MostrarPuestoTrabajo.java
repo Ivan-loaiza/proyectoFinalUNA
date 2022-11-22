@@ -1,11 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
+
 package Form;
 
 import Logic.Puesto;
 import Logic.Global;
+import java.awt.print.PrinterException;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,9 +15,10 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
 
     public MostrarPuestoTrabajo() {
         initComponents();
-        util.recuperarDeArchivo();
         tblPuestos.setModel(util.generarModeloTabla());
         cboIdDepartamento.setModel(util.generarModeloComboBox());
+        cboIdDepartamentoEditar.setModel(util.generarModeloComboBox());
+        
     }
 
     Puesto util = new Puesto();
@@ -63,6 +63,9 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
               if(Integer.parseInt(util.generarModeloComboBox().getElementAt(i).toString()) == IdDepartamentoTabla){
               posicionCombo = i;
                }
+          }
+          if(posicionCombo == 0){
+              JOptionPane.showMessageDialog(rootPane, "Departamento no encontrado, por favor seleccione otro departamento o elimine el puesto", "Error: Departamento no encontrado", JOptionPane.INFORMATION_MESSAGE);
           }
           cboIdDepartamentoEditar.setModel(util.generarModeloComboBox());
           cboIdDepartamentoEditar.setSelectedIndex(posicionCombo);
@@ -378,6 +381,11 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         btnImprimir.setFocusable(false);
         btnImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnImprimir);
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/exit_32x32.png"))); // NOI18N
@@ -473,7 +481,7 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        try {
+        if(tblPuestos.getSelectedRow() >= 0){
             fila = tblPuestos.getSelectedRow();
             int resp = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro que desea eliminar la fila " + (fila+1) + " ?", "Eliminar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
            
@@ -484,8 +492,8 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
                 util.guardarEnArchivo();
             }
             
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione una fila a editar");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione una fila a eliminar","Error: Fila no seleccionada", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -504,9 +512,9 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
             AgregarPuesto();
         }
         else{
-            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null, JOptionPane.WARNING_MESSAGE);
-            if(EsUnNumero() == false){JOptionPane.showMessageDialog(rootPane, "El ID o el salario no son un numero entero, por favor ingrese un numero entero", null, JOptionPane.WARNING_MESSAGE);}
-            if(cboIdDepartamento.getSelectedIndex() <= 0){JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un ID de departamento", null, JOptionPane.WARNING_MESSAGE);}
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", "Error: Datos de tipo incorrecto en los espacios de llenado", JOptionPane.ERROR_MESSAGE);
+            if(EsUnNumero() == false){JOptionPane.showMessageDialog(rootPane, "El ID o el salario no son un numero entero, por favor ingrese un numero entero", "Error: Datos no númericos encontrados", JOptionPane.ERROR_MESSAGE);}
+            if(cboIdDepartamento.getSelectedIndex() <= 0){JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un ID de departamento", "Advertencia", JOptionPane.WARNING_MESSAGE);}
         }
             LimpiarCampos();
             util.guardarEnArchivo();
@@ -526,9 +534,9 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
             util.guardarEnArchivo();
         }
         else{
-            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", null, JOptionPane.WARNING_MESSAGE);
-            if(EsUnNumeroEdit()== false){JOptionPane.showMessageDialog(rootPane, "El salario no es un numero entero, por favor ingrese un numero entero", null, JOptionPane.WARNING_MESSAGE);}
-            if(cboIdDepartamentoEditar.getSelectedIndex() <= 0){JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un ID de departamento", null, JOptionPane.WARNING_MESSAGE);}
+            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", "Error: Datos de tipo incorrecto en los espacios de llenado", JOptionPane.ERROR_MESSAGE);
+            if(EsUnNumeroEdit()== false){JOptionPane.showMessageDialog(rootPane, "El ID o el salario no son un numero entero, por favor ingrese un numero entero", "Error: Datos no númericos encontrados", JOptionPane.ERROR_MESSAGE);}
+            if(cboIdDepartamentoEditar.getSelectedIndex() <= 0){JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un ID de departamento", "Advertencia", JOptionPane.WARNING_MESSAGE);}
        
         }
       
@@ -545,6 +553,15 @@ public class MostrarPuestoTrabajo extends javax.swing.JInternalFrame implements 
         cboIdDepartamento.setModel(util.generarModeloComboBox());
         cboIdDepartamentoEditar.setModel(util.generarModeloComboBox());
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // TODO add your handling code here:
+        try {
+            tblPuestos.print();
+        } catch (PrinterException e) {
+            JOptionPane.showMessageDialog(rootPane, ("No se pudo imprimir. Error: " + e ), "Error al imprimir", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

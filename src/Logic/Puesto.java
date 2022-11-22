@@ -34,7 +34,7 @@ public class Puesto implements Global, Serializable {
     public Puesto(int id, String nombre, int salario, int idDepartamento){
         
         this.id = id;
-        this.nombre = nombre;
+        this.nombre = nombre.toLowerCase();
         this.salario = salario;
         this.idDepartamento = idDepartamento;
         
@@ -161,12 +161,7 @@ public class Puesto implements Global, Serializable {
                 puestos.clear();
                 puestos.addAll(temporal);
                 ficheroEntrada.close();
-                
-                
-                
-                for(Puesto puesto : puestos){
-                    System.out.print(puesto.salario + " / ");
-                }
+             
             }
         } catch (ClassNotFoundException cnfe) {
 

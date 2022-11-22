@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import Logic.*;
-import java.awt.Desktop;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,18 +26,20 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+        
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/company.png"));
         this.setIconImage(icon.getImage());
         
         D1.recuperarDeArchivo();
         P1.recuperarDeArchivo();
-        
+        E1.recuperarDeArchivo();
+        J1.recuperarDeArchivo();
     }
 
     Departamento D1 = new Departamento();
     Puesto P1 = new Puesto();
-    Empleado E1;
-    Jornada J1;
+    Empleado E1 = new Empleado();
+    Jornada J1 = new Jornada();
     
     
     @SuppressWarnings("unchecked")
@@ -50,7 +51,7 @@ public class MainForm extends javax.swing.JFrame {
         btnPuesto = new javax.swing.JButton();
         btnEmpleado = new javax.swing.JButton();
         btnJornada = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnPlanillas = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -77,7 +78,6 @@ public class MainForm extends javax.swing.JFrame {
 
         btnDepartamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/departamentos img.png"))); // NOI18N
         btnDepartamento.setText("Departamento");
-        btnDepartamento.setFocusable(false);
         btnDepartamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDepartamento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnDepartamento.addActionListener(new java.awt.event.ActionListener() {
@@ -87,9 +87,8 @@ public class MainForm extends javax.swing.JFrame {
         });
         barraHerramientas.add(btnDepartamento);
 
-        btnPuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons8-buscar-trabajo-correspondiente-color-32.png"))); // NOI18N
+        btnPuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/puesto.png"))); // NOI18N
         btnPuesto.setText("Puesto");
-        btnPuesto.setFocusable(false);
         btnPuesto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPuesto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnPuesto.addActionListener(new java.awt.event.ActionListener() {
@@ -99,9 +98,8 @@ public class MainForm extends javax.swing.JFrame {
         });
         barraHerramientas.add(btnPuesto);
 
-        btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons8-sala-de-reuniones-cloud-32.png"))); // NOI18N
+        btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/empleado.png"))); // NOI18N
         btnEmpleado.setText("Empleados");
-        btnEmpleado.setFocusable(false);
         btnEmpleado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEmpleado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -111,9 +109,8 @@ public class MainForm extends javax.swing.JFrame {
         });
         barraHerramientas.add(btnEmpleado);
 
-        btnJornada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons8-business-time-32.png"))); // NOI18N
+        btnJornada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/jornadas.png"))); // NOI18N
         btnJornada.setText("Jornada");
-        btnJornada.setFocusable(false);
         btnJornada.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnJornada.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnJornada.addActionListener(new java.awt.event.ActionListener() {
@@ -123,16 +120,19 @@ public class MainForm extends javax.swing.JFrame {
         });
         barraHerramientas.add(btnJornada);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons8-iniciar-la-transferencia-de-dinero-color-32.png"))); // NOI18N
-        jButton1.setText("Control de Pagos");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        barraHerramientas.add(jButton1);
+        btnPlanillas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/dinero.png"))); // NOI18N
+        btnPlanillas.setText("Control de Pagos");
+        btnPlanillas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPlanillas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPlanillas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlanillasActionPerformed(evt);
+            }
+        });
+        barraHerramientas.add(btnPlanillas);
 
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons8-señal-de-salida-color-hand-drawn-32.png"))); // NOI18N
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/salidaAlter.png"))); // NOI18N
         btnExit.setText("Salir");
-        btnExit.setFocusable(false);
         btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +150,7 @@ public class MainForm extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 374, Short.MAX_VALUE)
+            .addGap(0, 380, Short.MAX_VALUE)
         );
 
         mnuArchivo.setText("Archivo");
@@ -274,19 +274,17 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(barraHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
+            .addComponent(barraHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(escritorio)
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addComponent(escritorio))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(barraHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(escritorio)
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addComponent(escritorio))
         );
 
         pack();
@@ -447,6 +445,12 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mnuContenidoActionPerformed
 
+    private void btnPlanillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanillasActionPerformed
+        // TODO add your handling code here:
+        PlanillasForm planillas = new PlanillasForm();
+        planillas.setVisible(true);
+    }//GEN-LAST:event_btnPlanillasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -490,9 +494,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnEmpleado;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnJornada;
+    private javax.swing.JButton btnPlanillas;
     private javax.swing.JButton btnPuesto;
     private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mnuAcercaDe;
     private javax.swing.JMenuItem mnuActual;

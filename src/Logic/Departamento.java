@@ -29,7 +29,7 @@ public class Departamento implements Serializable, Global{
     public Departamento(int id, String nombre) {
             
         this.id = id;
-        this.nombre = nombre;
+        this.nombre = nombre.toLowerCase();
         
         departamentos.add(this);
     }
@@ -110,9 +110,6 @@ public class Departamento implements Serializable, Global{
                 departamentos.addAll(temporal);
                 ficheroEntrada.close();
                 
-                for(Departamento departamento : departamentos){
-                    System.out.print(departamento.id + " / ");
-                }
             }
         } catch (ClassNotFoundException cnfe) {
 

@@ -9,8 +9,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -37,10 +41,10 @@ public class Jornada implements Serializable, Global{
     
     
     public double calcularSalarioBruto(){
-        int salarioHora= 0;
+        double salarioHora= 0;
         
         for(Empleado empleado : empleados){
-            if(idEmpleado == empleado.getIdPuesto()){
+            if(idEmpleado == empleado.getId()){
                 salarioHora = empleado.devolverSalario();
             }
         }
@@ -99,6 +103,7 @@ public class Jornada implements Serializable, Global{
     
     public static String ruta = System.getProperty("user.dir") + "\\src\\Data\\Jornadas.dat";
     DefaultTableModel modeloTablaJornadas = new DefaultTableModel();
+    DefaultComboBoxModel modeloComboBoxEmpleados = new  DefaultComboBoxModel();
     
     public void removerJornada(Jornada J1){
         
@@ -115,8 +120,15 @@ public class Jornada implements Serializable, Global{
         jornadas.remove(jornadas.size()-1);
     }
     
+    public double distanciaEntreFechas(){
+       double distancia =  fechaFinal.getTime() - fechaInicio.getTime();
+       
+       
+       return distancia;
+    }
+    
       public DefaultTableModel generarModeloTabla(){
-         Object [] filas = new Object[2];
+         Object [] filas = new Object[7];
          
          
          modeloTablaJornadas = new DefaultTableModel();
@@ -131,15 +143,16 @@ public class Jornada implements Serializable, Global{
          
          for(Jornada jornada : jornadas){
             
-            String fechainicio = String.valueOf(jornada.getFechaInicio().getDay()) + "/" + String.valueOf(jornada.getFechaInicio().getMonth() +"/"+ String.valueOf(jornada.getFechaInicio().getYear()+1900));
-            String fechafin = String.valueOf(jornada.getFechaFinal().getDay()) + "/" + String.valueOf(jornada.getFechaFinal().getMonth() +"/"+ String.valueOf(jornada.getFechaFinal().getYear()+1900));
-
+            
+            String fechaini = jornada.fechaInicio.toLocaleString();
+            String fechafin = jornada.fechaFinal.toLocaleString();
+                    
              
             filas[0] = "" + jornada.getIdJornada();
             filas[1] = jornada.getHorasNormales();
             filas[2] = jornada.getHorasExtras();
             filas[3] = jornada.calcularSalarioBruto();
-            filas[4] = fechainicio;
+            filas[4] = fechaini;
             filas[5] = fechafin;
             filas[6] = jornada.getIdEmpleado();
              
@@ -156,6 +169,16 @@ public class Jornada implements Serializable, Global{
          
          return modeloTablaJornadas;
      }
+      
+     public DefaultComboBoxModel generarModeloComboBox(){
+        modeloComboBoxEmpleados = new DefaultComboBoxModel();
+        modeloComboBoxEmpleados.addElement("--Seleccione una opcion--");
+        for(Empleado empleado : empleados){
+            modeloComboBoxEmpleados.addElement(empleado.getId());
+        }
+        
+        return modeloComboBoxEmpleados;
+    }
     
     public void guardarEnArchivo() {
         String archivo = "Jornadas.dat";
@@ -214,11 +237,5 @@ public class Jornada implements Serializable, Global{
         return !Jornada.existeJornada(id);
     }
      
-     
-     
-     
-     
-    
-    
     
 }
