@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Frander%20centeno/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/MostrarPuestoTrabajo.java</file>
-            <file>file:/C:/Users/Frander%20centeno/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/MostrarJornadaLaboral.java</file>
-            <file>file:/C:/Users/Frander%20centeno/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Logic/Departamento.java</file>
-            <file>file:/C:/Users/Frander%20centeno/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/MostrarDepartamento.java</file>
-            <file>file:/C:/Users/Frander%20centeno/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/MostrarPlanillas.java</file>
-            <file>file:/C:/Users/Frander%20centeno/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/MainForm.java</file>
-            <file>file:/C:/Users/Frander%20centeno/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/MostrarEmpleado.java</file>
+            <file>file:/C:/Users/PC/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/MostrarJornadaLaboral.java</file>
+            <file>file:/C:/Users/PC/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/UserForm.java</file>
+            <file>file:/C:/Users/PC/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Logic/Global.java</file>
+            <file>file:/C:/Users/PC/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Logic/User.java</file>
+            <file>file:/C:/Users/PC/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/MainForm.java</file>
+            <file>file:/C:/Users/PC/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/PlanillasForm.java</file>
+            <file>file:/C:/Users/PC/OneDrive/Documentos/GitHub/proyectoFinalUNA/src/Form/LoginForm.java</file>
         </group>
     </open-files>
 </project-private>

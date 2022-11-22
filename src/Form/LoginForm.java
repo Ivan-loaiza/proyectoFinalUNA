@@ -58,9 +58,15 @@ public class LoginForm extends javax.swing.JFrame implements Global {
     void login(){
         
           String usuario= txtUsuario.getText().replaceAll(" +", "").trim();
+          String usuarioCheck;
           char [] input = txtContraseña.getPassword();
           
-            if(usuario.equals(user) && isPasswordCorrect(input)){
+          if(usuarioAjuste.get(0).getUsuario() != "" || usuarioAjuste.get(0).getUsuario() != null){
+              usuarioCheck = usuarioAjuste.get(0).getUsuario();
+         }
+         else{usuarioCheck = user;}
+          
+            if(usuario.equals(usuarioCheck) && isPasswordCorrect(input)){
                 this.dispose();
                 MainForm main= new MainForm();
                 main.setVisible(true);
@@ -78,36 +84,10 @@ public class LoginForm extends javax.swing.JFrame implements Global {
             
     }
     
-    //Metodos para reutilizar codigo en el frame de usuario
+  
     
-    public void cambioTitulo (String titulo){
-        lblTitulo.setText(titulo);
-    }
-    
-    public void comprobarDatos(){
-         String usuario= txtUsuario.getText().replaceAll(" +", "").trim();
-         char [] input = txtContraseña.getPassword();
-           
-            if(usuario.equals(user) && isPasswordCorrect(input)){
-                this.dispose();
-                UserForm U = new UserForm();
-                U.winModificar.pack();
-                U.winModificar.setVisible(true);
-                U.colocarDatos();
-            }
-            
-            else{
-                JOptionPane.showMessageDialog(rootPane, "Usuario y/o contraseña incorrecta.");
-            }
-    }
-    
-    public boolean editable(boolean unEstado){
-        boolean estado = false;
-        
-        estado=unEstado;
-        
-        return estado;
-    }
+   
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

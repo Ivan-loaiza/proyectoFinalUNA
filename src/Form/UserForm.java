@@ -6,10 +6,12 @@ package Form;
 
 import java.awt.Color;
 import Logic.Global;
+import static Logic.Global.usuarioAjuste;
 import Logic.User;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -22,9 +24,14 @@ public class UserForm extends javax.swing.JFrame implements Global {
         this.setResizable(false);
         this.pack();
         this.setLocationRelativeTo(null);
+        util.recuperarDeArchivo();
         
         //Se coloca el usuario en el label de usuario
+        if(usuarioAjuste.get(0).getUsuario() != null || usuarioAjuste.get(0).getUsuario() != ""){
+            lblUsuario.setText(usuarioAjuste.get(0).getUsuario());
+        }else{
         lblUsuario.setText(user);
+        }
         //Se llena de * el string que corresponde a la contraseña censurada en el userForm (Esto respecto a el largo de la contraseña)
         for(int i=0; i<password.toString().length() ;i++){
             contra = contra + "*";
@@ -63,8 +70,9 @@ public class UserForm extends javax.swing.JFrame implements Global {
     
     
     void guardarUsuario (){
-        if(txtContraseña.toString().length()<= password.toString().length()){
+        if(txtContraseña.getPassword().length <= password.toString().length()){
             User U = new User(txtUsuario.getText().trim(), txtContraseña.getPassword());
+            this.winModificar.dispose();
         }else{
             JOptionPane.showMessageDialog(rootPane, "La contraseña no está dentro del largo permitido. Por favor ingrese una contraseña de máximo 10 carácteres");
         }
@@ -72,8 +80,12 @@ public class UserForm extends javax.swing.JFrame implements Global {
     
     }
       public void colocarDatos(){
+          try {  
         txtUsuario.setText(usuarioAjuste.get(0).getUsuario());
         txtContraseña.setText(usuarioAjuste.get(0).getContra().toString());
+          } catch (Exception e) {
+              
+          }
         }  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -91,6 +103,18 @@ public class UserForm extends javax.swing.JFrame implements Global {
         btnModificarDial = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         cbkPasswordVisible = new javax.swing.JCheckBox();
+        winVerificar = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        txtUsuarioCheck = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel10 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        txtContraseñaCheck = new javax.swing.JPasswordField();
+        lblTitulo1 = new javax.swing.JLabel();
+        btnModificarDial1 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        cbkPasswordVisible1 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
@@ -103,6 +127,8 @@ public class UserForm extends javax.swing.JFrame implements Global {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblContraseña = new javax.swing.JLabel();
+
+        winModificar.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -245,6 +271,150 @@ public class UserForm extends javax.swing.JFrame implements Global {
         winModificarLayout.setVerticalGroup(
             winModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        winVerificar.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel9.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Usuario:");
+
+        txtUsuarioCheck.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtUsuarioCheck.setBorder(null);
+        txtUsuarioCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioCheckActionPerformed(evt);
+            }
+        });
+        txtUsuarioCheck.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioCheckKeyPressed(evt);
+            }
+        });
+
+        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel10.setFont(new java.awt.Font("Roboto Light", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Contraseña:");
+
+        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtContraseñaCheck.setBorder(null);
+        txtContraseñaCheck.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContraseñaCheckKeyPressed(evt);
+            }
+        });
+
+        lblTitulo1.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        lblTitulo1.setForeground(new java.awt.Color(0, 0, 0));
+        lblTitulo1.setText("Comprobar identidad");
+
+        btnModificarDial1.setBackground(new java.awt.Color(51, 54, 87));
+        btnModificarDial1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarDial1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnModificarDial1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnModificarDial1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnModificarDial1MouseExited(evt);
+            }
+        });
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Comprobar");
+        jLabel11.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        javax.swing.GroupLayout btnModificarDial1Layout = new javax.swing.GroupLayout(btnModificarDial1);
+        btnModificarDial1.setLayout(btnModificarDial1Layout);
+        btnModificarDial1Layout.setHorizontalGroup(
+            btnModificarDial1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnModificarDial1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        btnModificarDial1Layout.setVerticalGroup(
+            btnModificarDial1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnModificarDial1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        cbkPasswordVisible1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbkPasswordVisible1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtContraseñaCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                            .addComponent(txtUsuarioCheck, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(btnModificarDial1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbkPasswordVisible1)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(lblTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtUsuarioCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(txtContraseñaCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbkPasswordVisible1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnModificarDial1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout winVerificarLayout = new javax.swing.GroupLayout(winVerificar.getContentPane());
+        winVerificar.getContentPane().setLayout(winVerificarLayout);
+        winVerificarLayout.setHorizontalGroup(
+            winVerificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(winVerificarLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        winVerificarLayout.setVerticalGroup(
+            winVerificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -441,10 +611,9 @@ public class UserForm extends javax.swing.JFrame implements Global {
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
         // TODO add your handling code here:
-        LoginForm check = new LoginForm();
-        check.cambioTitulo("Comprobación de identidad");
-        check.setVisible(true);
-        check.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+       winVerificar.pack();
+        winVerificar.setVisible(true);
+        winVerificar.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnModificarMouseClicked
 
     private void btnModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseEntered
@@ -507,6 +676,43 @@ public class UserForm extends javax.swing.JFrame implements Global {
         }
     }//GEN-LAST:event_cbkPasswordVisibleActionPerformed
 
+    private void txtUsuarioCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioCheckActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioCheckActionPerformed
+
+    private void txtUsuarioCheckKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioCheckKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioCheckKeyPressed
+
+    private void txtContraseñaCheckKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaCheckKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraseñaCheckKeyPressed
+
+    private void btnModificarDial1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarDial1MouseClicked
+        // TODO add your handling code here:
+        comprobarDatos();
+    }//GEN-LAST:event_btnModificarDial1MouseClicked
+
+    private void btnModificarDial1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarDial1MouseEntered
+        // TODO add your handling code here:
+         btnModificarDial1.setBackground(new Color(119, 100, 228));
+    }//GEN-LAST:event_btnModificarDial1MouseEntered
+
+    private void btnModificarDial1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarDial1MouseExited
+        // TODO add your handling code here:
+        btnModificarDial1.setBackground(new Color(51, 54, 87));
+    }//GEN-LAST:event_btnModificarDial1MouseExited
+
+    private void cbkPasswordVisible1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkPasswordVisible1ActionPerformed
+        // TODO add your handling code here:
+         if(cbkPasswordVisible1.isSelected()){
+            txtContraseñaCheck.setEchoChar((char)0);
+        }
+        else{
+            txtContraseñaCheck.setEchoChar('*');
+        }
+    }//GEN-LAST:event_cbkPasswordVisible1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -547,9 +753,13 @@ public class UserForm extends javax.swing.JFrame implements Global {
     private javax.swing.JPanel ImagenUsuario;
     private javax.swing.JPanel btnModificar;
     private javax.swing.JPanel btnModificarDial;
+    private javax.swing.JPanel btnModificarDial1;
     private javax.swing.JPanel btnSalir;
     private javax.swing.JCheckBox cbkPasswordVisible;
+    private javax.swing.JCheckBox cbkPasswordVisible1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -557,16 +767,75 @@ public class UserForm extends javax.swing.JFrame implements Global {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblTitulo1;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPasswordField txtContraseña;
+    private javax.swing.JPasswordField txtContraseñaCheck;
     private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtUsuarioCheck;
     public javax.swing.JDialog winModificar;
+    public javax.swing.JDialog winVerificar;
     // End of variables declaration//GEN-END:variables
+    boolean isPasswordCorrect(char [] input){
+            
+            boolean isCorrect = true;
+            char [] correctPassword = new char[10];
+            
+            if(usuarioAjuste.isEmpty()){
+                correctPassword = new char [] {'1', '2', '3', '4'};
+            }else{
+                correctPassword = usuarioAjuste.get(0).getContra();
+            }
+            
+            
+            
+            if(input.length != correctPassword.length){
+                isCorrect = false;
+            }
+            else{
+                isCorrect = Arrays.equals(input, correctPassword);
+            }
+            
+            Arrays.fill(correctPassword, '0');
+            
+        return isCorrect;
+    }
+    
+    
+    public void comprobarDatos(){
+         String usuario= txtUsuarioCheck.getText().replaceAll(" +", "").trim();
+         String usuarioCheck;
+         char [] input = txtContraseñaCheck.getPassword();
+         
+         if(usuarioAjuste.get(0).getUsuario() != "" || usuarioAjuste.get(0).getUsuario() != null){
+              usuarioCheck = usuarioAjuste.get(0).getUsuario();
+         }
+         else{usuarioCheck = user;}
+           
+            if(usuario.equals(usuarioCheck) && isPasswordCorrect(input)){
+                winModificar.pack();
+                winModificar.setVisible(true);
+                colocarDatos();
+                this.winVerificar.dispose();
+            }
+            
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Usuario y/o contraseña incorrecta.");
+            }
+    }
+    
+
+
+
 }
