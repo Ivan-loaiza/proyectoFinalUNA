@@ -10,7 +10,6 @@ import Logic.User;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame implements Global {
@@ -29,9 +28,10 @@ public class LoginForm extends javax.swing.JFrame implements Global {
     }
      
     User util = new User();
+    MainForm main= new MainForm();
     
     //Implementación correcta (segun la documentación de java) de un passwordField
-    boolean isPasswordCorrect(char [] input){
+    private boolean isPasswordCorrect(char [] input){
             
             boolean isCorrect = true;
             char [] correctPassword = new char[10];
@@ -55,20 +55,19 @@ public class LoginForm extends javax.swing.JFrame implements Global {
         return isCorrect;
     }
    
-    void login(){
+   private void login(){
         
           String usuario= txtUsuario.getText().replaceAll(" +", "").trim();
           String usuarioCheck;
           char [] input = txtContraseña.getPassword();
           
-          if(usuarioAjuste.get(0).getUsuario() != "" || usuarioAjuste.get(0).getUsuario() != null){
+          if(usuarioAjuste.get(0).getUsuario() != ""){
               usuarioCheck = usuarioAjuste.get(0).getUsuario();
          }
          else{usuarioCheck = user;}
           
             if(usuario.equals(usuarioCheck) && isPasswordCorrect(input)){
                 this.dispose();
-                MainForm main= new MainForm();
                 main.setVisible(true);
             }
             
@@ -342,7 +341,7 @@ public class LoginForm extends javax.swing.JFrame implements Global {
 
     private void txtContraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyPressed
         // TODO add your handling code here:
-       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+       if(evt.getKeyCode()== KeyEvent.VK_ENTER){
            login();
        }
     }//GEN-LAST:event_txtContraseñaKeyPressed
@@ -358,8 +357,7 @@ public class LoginForm extends javax.swing.JFrame implements Global {
     }//GEN-LAST:event_btnIngresarMouseExited
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here
         login();
     }//GEN-LAST:event_btnIngresarMouseClicked
 

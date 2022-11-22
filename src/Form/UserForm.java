@@ -33,7 +33,7 @@ public class UserForm extends javax.swing.JFrame implements Global {
         lblUsuario.setText(user);
         }
         //Se llena de * el string que corresponde a la contraseña censurada en el userForm (Esto respecto a el largo de la contraseña)
-        for(int i=0; i<password.toString().length() ;i++){
+        for(int i=0; i<usuarioAjuste.get(0).getContra().length ;i++){
             contra = contra + "*";
         }
         //Se coloca la contraseña
