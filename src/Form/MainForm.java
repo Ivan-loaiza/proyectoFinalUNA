@@ -10,6 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import Logic.*;
+import java.awt.Desktop;
+import java.beans.PropertyVetoException;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -352,6 +355,14 @@ public class MainForm extends javax.swing.JFrame {
             escritorio.setLayout(null);
         }
         
+        for(int i=0; i< frames.length; i++){
+            try {
+                frames[i].setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                }
+        
     }//GEN-LAST:event_mnuCascadaActionPerformed
 
     private void mnuDepartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDepartamentosActionPerformed
@@ -423,16 +434,24 @@ public class MainForm extends javax.swing.JFrame {
         else{
             escritorio.setLayout(null);
         }
+        
+        for(int i=0; i< frames.length; i++){
+            try {
+                frames[i].setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                }
     }//GEN-LAST:event_mnuParaleloActionPerformed
 
     private void mnuAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAcercaDeActionPerformed
         // TODO add your handling code here
-        String ruta = System.getProperty("user.dir") + "\\src\\Data\\Jornadas.dat";    
+        String ruta = System.getProperty("user.dir") + "\\src\\resources\\A.html";    
         
         
         
         try {
-            Runtime.getRuntime().exec("cmd /c start "+ruta);
+            Desktop.getDesktop().open(new File(ruta));
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -443,6 +462,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void mnuContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuContenidoActionPerformed
         // TODO add your handling code here:
+        
+        String ruta = System.getProperty("user.dir") + "\\src\\resources\\manual.html";
+        try {
+            Desktop.getDesktop().open(new File(ruta));
+        } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_mnuContenidoActionPerformed
 
     private void btnPlanillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlanillasActionPerformed

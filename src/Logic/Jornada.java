@@ -208,9 +208,6 @@ public class Jornada implements Serializable, Global{
                 jornadas.addAll(temporal);
                 ficheroEntrada.close();
                 
-                for(Jornada jornada : jornadas){
-                    System.out.print(jornada.idJornada + " / ");
-                }
             }
         } catch (ClassNotFoundException cnfe) {
 

@@ -10,7 +10,11 @@ import static Logic.Global.puestos;
 import Logic.Jornada;
 import Logic.Puesto;
 import Logic.Global;
+import java.awt.print.PrinterException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,9 +39,11 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
         tblJornadas.setModel(modeloTablaJornadas);
         
     }
+    
 
      DefaultTableModel modeloTablaJornadas = new DefaultTableModel();
      double sumaSalario;
+     int IDEmpleado;
     
     
        private void contadorRefresh(){
@@ -63,6 +69,7 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Control de planillas: por jornadas");
@@ -79,7 +86,7 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
 
         conteo.setText("Total: ");
 
-        cboOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMPLEADO", "PUESTO" }));
+        cboOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID EMPLEADO", "PUESTO" }));
         cboOpcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboOpcionActionPerformed(evt);
@@ -174,6 +181,13 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
 
         lblTotal.setText("Total gastos:");
 
+        jButton1.setText("Imprimir tabla");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -183,12 +197,15 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(conteo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(216, 216, 216)
                         .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTabbedPane1))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(25, 25, 25))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,11 +213,12 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(conteo)
-                    .addComponent(lblTotal))
+                    .addComponent(lblTotal)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -230,6 +248,14 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
         // TODO add your handling code here:
         tblJornadas.setModel(generarModeloTabla(cboOpcion.getSelectedIndex()));
         contadorRefresh();
+        
+        for(int i=0; i< tblJornadas.getRowCount(); i++){
+            sumaSalario += Double.parseDouble(tblJornadas.getValueAt(i, 3).toString());
+        }
+        lblTotal.setText("Total gastos: " + sumaSalario);
+        
+        
+        sumaSalario = 0;
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnBuscarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarFechaActionPerformed
@@ -240,7 +266,19 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
             sumaSalario += Double.parseDouble(tblJornadas.getValueAt(i, 3).toString());
         }
         lblTotal.setText("Total gastos: " + sumaSalario);
+        
+        
+        sumaSalario = 0;
     }//GEN-LAST:event_btnBuscarFechaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            tblJornadas.print();
+        } catch (PrinterException ex) {
+            JOptionPane.showMessageDialog(rootPane, ("No se pudo imprimir. Error: " + ex ), "Error al imprimir", JOptionPane.ERROR_MESSAGE);
+        
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,6 +322,7 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
     private javax.swing.JLabel conteo;
     private com.toedter.calendar.JDateChooser fecha1;
     private com.toedter.calendar.JDateChooser fecha2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -296,62 +335,103 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 
- public DefaultTableModel generarModeloTabla(int index){
-         Object [] filas = new Object[3];
-         
-         modeloTablaJornadas = new DefaultTableModel();
-         modeloTablaJornadas.addColumn("Identificacion"); 
-         modeloTablaJornadas.addColumn("Nombre");
-         modeloTablaJornadas.addColumn("Cargo");
-         
+    public DefaultTableModel generarModeloTabla(int index) {
+        Object[] filas = new Object[7];
+
+        modeloTablaJornadas = new DefaultTableModel();
+        modeloTablaJornadas.addColumn("ID Jornada");
+        modeloTablaJornadas.addColumn("Horas normales");
+        modeloTablaJornadas.addColumn("Horas extras");
+        modeloTablaJornadas.addColumn("Salario bruto");
+        modeloTablaJornadas.addColumn("Fecha inicio");
+        modeloTablaJornadas.addColumn("Fecha fin");
+        modeloTablaJornadas.addColumn("ID Empleado");
+
         switch (index) {
-            
-            
-          case 0:
-              for (Empleado autoridad : empleados) {
-                  String idString = String.valueOf(autoridad.getId());
-                  if(idString.startsWith(txtBuscar.getText().trim())){
-                  filas[0] = autoridad.getId();
-                  filas[1] = autoridad.getNombre() ;
-                  filas[2] = autoridad.getCorreo();
 
-                  modeloTablaJornadas.addRow(filas);
-                  }
-              }
+            case 0:
 
-              //Se limpian las filas con información basura
-              for (int i = 0; i < modeloTablaJornadas.getRowCount(); i++) {
-                  if (modeloTablaJornadas.getValueAt(i, 0).toString().equals("0") == true) {
-                      modeloTablaJornadas.removeRow(i);
-                  }
-              }
+                try {
+                IDEmpleado = Integer.parseInt(txtBuscar.getText().trim().toLowerCase());
+            } catch (Exception e) {
+                
+            }
+                
 
-              return modeloTablaJornadas;
-          case 1:
-              for (Puesto autoridad : puestos) {
-                  
-                  if(autoridad.getNombre().startsWith(txtBuscar.getText().trim().toLowerCase())){
-                  filas[0] = autoridad.getId();
-                  filas[1] = autoridad.getNombre();
-                  filas[2] = autoridad.getSalario();
+                for (Jornada jornada : jornadas) {
+                    if (IDEmpleado == jornada.getIdEmpleado()) {
+                        String fechaini = jornada.getFechaInicio().toLocaleString();
+                        String fechafin = jornada.getFechaFinal().toLocaleString();
 
-                  modeloTablaJornadas.addRow(filas);
-                  }
-              }
+                        filas[0] = "" + jornada.getIdJornada();
+                        filas[1] = jornada.getHorasNormales();
+                        filas[2] = jornada.getHorasExtras();
+                        filas[3] = jornada.calcularSalarioBruto();
+                        filas[4] = fechaini;
+                        filas[5] = fechafin;
+                        filas[6] = jornada.getIdEmpleado();
 
-              //Se limpian las filas con información basura
-              for (int i = 0; i < modeloTablaJornadas.getRowCount(); i++) {
-                  if (modeloTablaJornadas.getValueAt(i, 0).toString().equals("0") == true) {
-                      modeloTablaJornadas.removeRow(i);
-                  }
-              }
+                        modeloTablaJornadas.addRow(filas);
+                    }
+                }
 
-              return modeloTablaJornadas;
+                //Se limpian las filas con información basura
+                for (int i = 0; i < modeloTablaJornadas.getRowCount(); i++) {
+                    if (modeloTablaJornadas.getValueAt(i, 0).toString().equals("0") == true) {
+                        modeloTablaJornadas.removeRow(i);
+                    }
+                }
 
-      }
+                return modeloTablaJornadas;
 
-     return modeloTablaJornadas;    
-}
+            case 1:
+
+                String nombrePuesto = txtBuscar.getText().toLowerCase().trim();
+                IDEmpleado = 0;
+
+                for (Puesto puesto : puestos) {
+
+                    if (puesto.getNombre() == nombrePuesto) {
+
+                        for (Empleado empleado : empleados) {
+
+                            if (puesto.getId() == empleado.getIdPuesto()) {
+
+                                for (Jornada jornada : jornadas) {
+
+                                    if (empleado.getId() == jornada.getIdEmpleado()) {
+                                        String fechaini = jornada.getFechaInicio().toLocaleString();
+                                        String fechafin = jornada.getFechaFinal().toLocaleString();
+
+                                        filas[0] = "" + jornada.getIdJornada();
+                                        filas[1] = jornada.getHorasNormales();
+                                        filas[2] = jornada.getHorasExtras();
+                                        filas[3] = jornada.calcularSalarioBruto();
+                                        filas[4] = fechaini;
+                                        filas[5] = fechafin;
+                                        filas[6] = jornada.getIdEmpleado();
+
+                                        modeloTablaJornadas.addRow(filas);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //Se limpian las filas con información basura
+                    for (int i = 0; i < modeloTablaJornadas.getRowCount(); i++) {
+                        if (modeloTablaJornadas.getValueAt(i, 0).toString().equals("0") == true) {
+                            modeloTablaJornadas.removeRow(i);
+                        }
+                    }
+
+                    return modeloTablaJornadas;
+
+                }
+        }
+        return modeloTablaJornadas;
+    }
  
  
 public DefaultTableModel generarModeloTablaFechas(){
@@ -366,10 +446,12 @@ public DefaultTableModel generarModeloTablaFechas(){
     modeloTablaJornadas.addColumn("Fecha fin");
     modeloTablaJornadas.addColumn("ID Empleado");
     
-     double distanciaFechas = fecha2.getDate().getTime() -fecha1.getDate().getTime();
+     double maximo= fecha2.getDate().getTime();
+             
+     double minimo= fecha1.getDate().getTime();
               
              for (Jornada jornada : jornadas) {
-        if ((distanciaFechas - jornada.distanciaEntreFechas()) >= 0) {
+        if (jornada.getFechaInicio().getTime()>= minimo && jornada.getFechaFinal().getTime()<= maximo) {
             String fechaini = jornada.getFechaInicio().toLocaleString();
             String fechafin = jornada.getFechaFinal().toLocaleString();
 
