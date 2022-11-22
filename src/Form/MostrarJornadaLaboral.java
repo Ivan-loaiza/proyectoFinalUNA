@@ -186,7 +186,6 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame implements
 
         SaveForm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         SaveForm.setTitle("Guardar");
-        SaveForm.setAlwaysOnTop(true);
 
         jLabel1.setText("Horas normales:");
 
@@ -292,7 +291,6 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame implements
 
         EditForm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         EditForm.setTitle("Editar");
-        EditForm.setAlwaysOnTop(true);
 
         jLabel7.setText("Horas normales:");
 
@@ -556,10 +554,9 @@ public class MostrarJornadaLaboral extends javax.swing.JInternalFrame implements
             util.guardarEnArchivo();
         }
         else{
-            JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", "Error: Datos de tipo incorrecto en los espacios de llenado", JOptionPane.ERROR_MESSAGE);
+            if(!ExistenDatosValidosEdit()){JOptionPane.showMessageDialog(rootPane, "Por favor ingrese datos validos", "Error: Datos de tipo incorrecto en los espacios de llenado", JOptionPane.ERROR_MESSAGE);}
             if(EsUnNumeroEdit()== false){JOptionPane.showMessageDialog(rootPane, "Las horas o las horas extras no son un numero entero, por favor ingrese un numero entero", "Error: Datos no númericos encontrados", JOptionPane.ERROR_MESSAGE);}
             if(cboIdEmpleadoEdit.getSelectedIndex() <= 0){JOptionPane.showMessageDialog(rootPane, "Por favor seleccione un ID de Empleado", "Advertencia", JOptionPane.WARNING_MESSAGE);}
-       
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 

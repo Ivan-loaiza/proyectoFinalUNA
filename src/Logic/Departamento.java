@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Logic;
 
 import java.io.File;
@@ -34,9 +31,13 @@ public class Departamento implements Serializable, Global{
         departamentos.add(this);
     }
     
+    /*
+        Metodos varios de guardado, modificaciones del arraylist en Global y recuperación de dato de archivos de texto
+    */
+    
     //#######################################################################
     
-    public static String ruta = System.getProperty("user.dir") + "\\src\\Data\\Departamentos.dat";
+    public static String ruta = System.getProperty("user.dir") + "\\src\\Data\\Departamentos.dat"; //Variable general de ruta
     DefaultTableModel modeloTablaDepartamentos = new DefaultTableModel();
     
     public void removerDepartamento(Departamento D1){
@@ -157,16 +158,5 @@ public class Departamento implements Serializable, Global{
         return departamentos.get(index);
     }
     
-    
-    
-    public void Eliminar() {
-        Vector<Puesto> puestos = Puesto.PuestosDeDepartamento(this.id);
-        
-        for (Puesto puesto: puestos) {
-            puesto.Eliminar();
-        }
-        
-        Departamento.departamentos.remove(this);
-    }
     
 }

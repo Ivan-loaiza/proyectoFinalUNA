@@ -28,6 +28,8 @@ public class Puesto implements Global, Serializable {
     private int salario;
     private int idDepartamento;
 
+    //constructores
+    
     public Puesto() {
     }
     
@@ -38,9 +40,11 @@ public class Puesto implements Global, Serializable {
         this.salario = salario;
         this.idDepartamento = idDepartamento;
         
-        puestos.add(this);   
+        puestos.add(this);  //se agrega al arraylist
     }
 
+    //Metodos set y get
+    
     public int getId() {
         return id;
     }

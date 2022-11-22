@@ -6,7 +6,6 @@
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="2"/>
         <Property name="title" type="java.lang.String" value="Guardar"/>
-        <Property name="alwaysOnTop" type="boolean" value="true"/>
       </Properties>
 
       <Layout>
@@ -177,7 +176,6 @@
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="2"/>
         <Property name="title" type="java.lang.String" value="Editar"/>
-        <Property name="alwaysOnTop" type="boolean" value="true"/>
       </Properties>
 
       <Layout>

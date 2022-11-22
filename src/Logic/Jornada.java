@@ -9,11 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +20,9 @@ public class Jornada implements Serializable, Global{
     private int idJornada, horasNormales, horasExtras, idEmpleado;
     private Date fechaInicio, fechaFinal;
 
+    //Constructores 
+    
+    
     public Jornada() {
     }
 
@@ -35,10 +35,11 @@ public class Jornada implements Serializable, Global{
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         
-        jornadas.add(this);
+        jornadas.add(this);//se añade al arraylist
     }
 
     
+    //Metodo de calculo de salario
     
     public double calcularSalarioBruto(){
         double salarioHora= 0;
@@ -100,6 +101,7 @@ public class Jornada implements Serializable, Global{
         this.idEmpleado = idEmpleado;
     }
 
+    //Metodos varios de cargado de datos, modificaciones del arraylist en global y otros
     
     public static String ruta = System.getProperty("user.dir") + "\\src\\Data\\Jornadas.dat";
     DefaultTableModel modeloTablaJornadas = new DefaultTableModel();

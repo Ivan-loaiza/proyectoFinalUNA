@@ -20,6 +20,8 @@ public class User implements Serializable, Global {
     private String usuario;
     private char [] contra = new char[10];
     
+    
+    //Contructores
 
     public User() {
     }
@@ -31,6 +33,8 @@ public class User implements Serializable, Global {
         usuarioAjuste.clear();
         usuarioAjuste.add(this);
     }
+    
+    //Metodos get y set
 
     public String getUsuario() {
         return usuario;
@@ -47,6 +51,11 @@ public class User implements Serializable, Global {
     public void setContra(char[] contra) {
         this.contra = contra;
     }
+    
+    
+    /*
+        Metodos varios de guardado de datos y  recuperar datos
+    */
     
     public static String ruta = System.getProperty("user.dir") + "\\src\\Data\\Settings.dat";
     

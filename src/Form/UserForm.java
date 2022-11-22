@@ -1,7 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
+
+
 package Form;
 
 import java.awt.Color;
@@ -26,21 +25,31 @@ public class UserForm extends javax.swing.JFrame implements Global {
         this.setLocationRelativeTo(null);
         util.recuperarDeArchivo();
         
+        
+        
+        
         //Se coloca el usuario en el label de usuario
         if(usuarioAjuste.get(0).getUsuario() != null || usuarioAjuste.get(0).getUsuario() != ""){
             lblUsuario.setText(usuarioAjuste.get(0).getUsuario());
         }else{
         lblUsuario.setText(user);
         }
+        
+        
         //Se llena de * el string que corresponde a la contraseña censurada en el userForm (Esto respecto a el largo de la contraseña)
         for(int i=0; i<usuarioAjuste.get(0).getContra().length ;i++){
             contra = contra + "*";
         }
+        
         //Se coloca la contraseña
         lblContraseña.setText(contra);
         //Se dibuja la imagen en el panel del userForm con el logo
         ImagenUsuario.add(imagen);
         ImagenUsuario.repaint();
+        
+        
+        
+        
         }
     
     

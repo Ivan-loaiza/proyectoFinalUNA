@@ -26,7 +26,7 @@ public class Empleado implements Serializable,Global{
     private String telefono;
     private int idPuesto;
     
-    
+    //Contructores
     public Empleado() {
     }
 
@@ -41,6 +41,8 @@ public class Empleado implements Serializable,Global{
         
         empleados.add(this);
     }
+    
+    //Metodos get y set
     
     public int getId() {
         return id;
@@ -126,6 +128,7 @@ public class Empleado implements Serializable,Global{
         return null;
     }
     
+    //Metodos varios de guardado y modificación del arraylist en global.
     
      public static String ruta = System.getProperty("user.dir") + "\\src\\Data\\Empleados.dat";
      DefaultTableModel modeloTablaEmpleados = new DefaultTableModel();
