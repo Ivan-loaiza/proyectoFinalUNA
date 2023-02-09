@@ -50,7 +50,7 @@ public class Jornada implements Serializable, Global{
             }
         }
         
-        return salarioHora*horasExtras*horasNormales;
+        return (salarioHora*horasNormales) + (salarioHora*1.5*horasExtras);
     }
 
     public int getIdJornada() {

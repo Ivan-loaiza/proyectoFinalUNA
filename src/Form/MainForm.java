@@ -191,6 +191,11 @@ public class MainForm extends javax.swing.JFrame {
         mnuArchivo.add(mnuJornadas);
 
         mnuPlanillas.setText("Planillas");
+        mnuPlanillas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPlanillasActionPerformed(evt);
+            }
+        });
         mnuArchivo.add(mnuPlanillas);
 
         mnuUsuario.setText("Usuario");
@@ -277,10 +282,10 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(barraHerramientas, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(escritorio))
+                .addComponent(barraHerramientas, javax.swing.GroupLayout.DEFAULT_SIZE, 785, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,6 +482,12 @@ public class MainForm extends javax.swing.JFrame {
         PlanillasForm planillas = new PlanillasForm();
         planillas.setVisible(true);
     }//GEN-LAST:event_btnPlanillasActionPerformed
+
+    private void mnuPlanillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPlanillasActionPerformed
+        // TODO add your handling code here:
+        PlanillasForm planillas = new PlanillasForm();
+        planillas.setVisible(true);
+    }//GEN-LAST:event_mnuPlanillasActionPerformed
 
     /**
      * @param args the command line arguments

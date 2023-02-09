@@ -391,7 +391,7 @@ public class PlanillasForm extends javax.swing.JFrame implements Global{
 
                 for (Puesto puesto : puestos) {
 
-                    if (puesto.getNombre() == nombrePuesto) {
+                    if (puesto.getNombre().equals(nombrePuesto)) {
 
                         for (Empleado empleado : empleados) {
 
@@ -446,8 +446,7 @@ public DefaultTableModel generarModeloTablaFechas(){
     modeloTablaJornadas.addColumn("Fecha fin");
     modeloTablaJornadas.addColumn("ID Empleado");
     
-     double maximo= fecha2.getDate().getTime();
-             
+     double maximo= fecha2.getDate().getTime(); 
      double minimo= fecha1.getDate().getTime();
               
              for (Jornada jornada : jornadas) {

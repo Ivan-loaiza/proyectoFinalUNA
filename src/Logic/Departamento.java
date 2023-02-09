@@ -10,7 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 public class Departamento implements Serializable, Global{
@@ -19,10 +18,10 @@ public class Departamento implements Serializable, Global{
     private int id;
     private String nombre;
 
-    public Departamento() {
+       
+     public Departamento() {
     }
-    
-    
+
     public Departamento(int id, String nombre) {
             
         this.id = id;
